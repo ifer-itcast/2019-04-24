@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        list-style: none;
+    }
+    .wrap {
+        width: 300px;
+        height: 100px;
+        margin: 60px auto 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .con {
+        position: absolute;
+        left: -100%;
+        width: 500%;
+        height: 100%;
+    }
+    .con li {
+        width: 20%;
+        height: 100px;
+        line-height: 100px;
+        float: left;
+        color: #fff;
+        font-size: 60px;
+        text-align: center;
+    }
+    .con li.first {
+        background-color: red;
+    }
+    .con li.second {
+        background-color: green;
+    }
+    .con li.thrid {
+        background-color: blue;
+    }
+    .con li.four {
+        background-color: pink;
+    }
+    .dot{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .dot li {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, .3);
+        border-radius: 50%;
+        margin: 0 10px;
+    }
+    .dot .active {
+        background-color: rgba(255, 255, 255, 1);
+    }
+    .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, .8);
+        cursor: pointer;
+        font-size: 30px;
+    }
+    .arrow:hover {
+        color: rgba(255, 255, 255, 1);
+    }
+    .arrow-left {
+        left: 0;
+    }
+    .arrow-right {
+        right: 0;
+    }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul class="con">
+            <li class="first">1</li>
+            <li class="second">2</li>
+            <li class="thrid">3</li>
+        </ul>
+        <ol class="dot">
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </div>
+    <script src="./animate.js"></script>
+    <script>
+    var oWrap = document.querySelector('.wrap');
+    var oUl = document.querySelector('ul');
+    
+    // 前后各补一张
+    oUl.appendChild( oUl.children[0].cloneNode(true) );
+    oUl.insertBefore( oUl.children[oUl.children.length - 2].cloneNode(true), oUl.children[0] );
+    
+    var aUlLis = oUl.getElementsByTagName('li');
+
+    var oOl = document.querySelector('ol');
+    var aOlLis = oOl.getElementsByTagName('li');
+
+    var oneWid = aUlLis[0].offsetWidth;
+    
+
+    
+    </script>
+</body>
+</html>
