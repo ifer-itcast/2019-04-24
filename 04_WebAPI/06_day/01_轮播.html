@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        list-style: none;
+    }
+    .wrap {
+        width: 300px;
+        height: 150px;
+        margin: 60px auto 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .con {
+        position: absolute;
+        left: 0;
+        width: 400%;
+        height: 100%;
+    }
+    .con li {
+        width: 300px;
+        height: 150px;
+        line-height: 150px;
+        float: left;
+        color: #fff;
+        font-size: 60px;
+        text-align: center;
+    }
+    .con li.first {
+        background-color: red;
+    }
+    .con li.second {
+        background-color: green;
+    }
+    .con li.thrid {
+        background-color: blue;
+    }
+    .con li.four {
+        background-color: pink;
+    }
+    .dot{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .dot li {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, .3);
+        border-radius: 50%;
+        margin: 0 10px;
+    }
+    .dot .active {
+        background-color: rgba(255, 255, 255, 1);
+    }
+    .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, .8);
+        cursor: pointer;
+        font-size: 30px;
+    }
+    .arrow:hover {
+        color: rgba(255, 255, 255, 1);
+    }
+    .arrow-left {
+        left: 0;
+    }
+    .arrow-right {
+        right: 0;
+    }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul class="con">
+            <li class="first">1</li>
+            <li class="second">2</li>
+            <li class="thrid">3</li>
+            <li class="four">4</li>
+        </ul>
+        <ol class="dot"></ol>
+        <span class="arrow arrow-left">&lt;</span>
+        <span class="arrow arrow-right">&gt;</span>
+    </div>
+    <script src="./animate.js"></script>
+    <script>
+    var oWrap = document.querySelector('.wrap');
+    var oUl = document.querySelector('ul');
+    
+    // 克隆
+    oUl.appendChild( oUl.children[0].cloneNode(true) );
+    
+    var aUlLis = oUl.getElementsByTagName('li');
+
+    var oOl = document.querySelector('ol');
+    var aOlLis = oOl.getElementsByTagName('li');
+
+    var oArrowRight = document.querySelector('.arrow-right');
+    var oArrowLeft = document.querySelector('.arrow-left');
+    
+    var oneWid = aUlLis[0].offsetWidth;
+    oUl.style.width = oneWid * aUlLis.length + 'px';
+    
+    var iArrowNow = 0;
+    var iDotNow = 0;
+
+    var timer = null;
+
+    var flag = true;
+
+    oArrowRight.onclick = function() {
+        if(flag) {
+            flag = false;
+            if(iArrowNow == aUlLis.length - 1) {
+                oUl.style.left = 0;
+                iArrowNow = 0;
+            }
+            iArrowNow ++;
+
+            animate(oUl, -iArrowNow*oneWid, function() {
+                flag = true;
+            });
+
+            if(iDotNow == aOlLis.length - 1) {
+                iDotNow = -1;
+            }
+            // 注意这里不能用 iArrowNow，因为 aUlLis 和 aOlLis 的长度不一样
+            iDotNow ++;
+            changeDot();
+        }
+    };
+
+    oArrowLeft.onclick = function() {
+        if(flag) {
+            flag = false;
+            if(iArrowNow == 0) {
+                oUl.style.left = -(aUlLis.length - 1) * oneWid + 'px';
+                iArrowNow = aUlLis.length - 1;
+            }
+            iArrowNow --;
+            animate(oUl, -iArrowNow*oneWid, function() {
+                flag = true;
+            });
+
+            if(iDotNow == 0) {
+                // 注意这里不要写成是 aUlLis.length 了
+                iDotNow = aOlLis.length;
+            }
+            iDotNow --;
+            changeDot();
+        }
+    };
+
+
+    /* for(var i = 0; i < aOlLis.length; i ++) {
+        aOlLis[i].index = i;
+        aOlLis[i].onclick = function() {
+            animate(oUl, -this.index*oneWid);
+            iDotNow = this.index;
+            // mark
+            iArrowNow = this.index;
+            changeDot();
+        };
+    } */
+
+    for(var i = 0; i < aUlLis.length - 1; i ++) {
+        var oLi = document.createElement('li');
+        oLi.index = i;
+        oLi.onclick = function() {
+            animate(oUl, -this.index*oneWid);
+            iDotNow = this.index;
+            iArrowNow = this.index;
+            changeDot();
+        };
+        if(i == 0) {
+            oLi.className = 'active';
+        }
+        oOl.appendChild(oLi);
+    }
+
+    function changeDot() {
+        for(var i = 0; i < aOlLis.length; i ++) {
+            aOlLis[i].className = '';
+        }
+        aOlLis[iDotNow].className = 'active';
+    }
+
+    timer = setInterval(function() {
+        oArrowRight.click();
+    }, 2000);
+
+    oWrap.onmouseover = function() {
+        clearInterval(timer);
+    };
+    oWrap.onmouseout = function() {
+        timer = setInterval(function() {
+            oArrowRight.click();
+        }, 2000);
+    };
+    </script>
+</body>
+</html>
