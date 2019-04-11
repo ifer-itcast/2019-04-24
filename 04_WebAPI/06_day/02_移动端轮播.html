@@ -56,32 +56,17 @@
     }
     .dot li {
         display: inline-block;
-        width: 10px;
-        height: 10px;
+        width: 4px;
+        height: 4px;
+        border-radius: 2px;
         cursor: pointer;
         background-color: rgba(255, 255, 255, .3);
-        border-radius: 50%;
-        margin: 0 10px;
+        margin: 0 5px;
+        transition: all .3s;
     }
     .dot .active {
+        width: 15px;
         background-color: rgba(255, 255, 255, 1);
-    }
-    .arrow {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        color: rgba(255, 255, 255, .8);
-        cursor: pointer;
-        font-size: 30px;
-    }
-    .arrow:hover {
-        color: rgba(255, 255, 255, 1);
-    }
-    .arrow-left {
-        left: 0;
-    }
-    .arrow-right {
-        right: 0;
     }
     </style>
 </head>
@@ -93,7 +78,7 @@
             <li class="thrid">3</li>
         </ul>
         <ol class="dot">
-            <li></li>
+            <li class="active"></li>
             <li></li>
             <li></li>
         </ol>
@@ -114,8 +99,98 @@
 
     var oneWid = aUlLis[0].offsetWidth;
     
+    var timer = null;
+    var iNow = 0;
+    timer = setInterval(() => {
+        iNow ++;
+        oUl.style.transition = 'all .3s';
+        oUl.style.transform = 'translateX('+ -iNow * oneWid +'px)';
+    }, 2000);
 
-    
+    // 等过度完成之后再判断😊
+    oUl.addEventListener('transitionend', function() {
+        // >=
+        if(iNow >= 3) {
+            iNow = 0;
+            oUl.style.transition = 'none';
+            // 这里 translateX(0px) 是默认的值，即还是第一张，并不是 1 左边的 3
+            // 显示从3运动到最后一张1，最后一张1运动完后瞬间跳到1
+            // 而PC端是下次运动时切换的初始，移动端是最后依次运动完后切换的初始
+            var translateX = -iNow * oneWid;
+            oUl.style.transform = 'translateX('+ translateX +'px)';
+            // clearInterval(timer);
+        } else if(iNow < 0) {
+            // iNow 等于 0 时是第一张图
+            // iNow 等于 2 时是第三张图
+            iNow = 2;
+            oUl.style.transition = 'none';
+            var translateX = -iNow * oneWid;
+            oUl.style.transform = 'translateX('+ translateX +'px)';
+        }
+
+        // 小圆点跟随变化
+        oOl.querySelector('.active').classList.remove('active');
+        oOl.children[iNow].classList.add('active');
+    });
+
+
+    // 手指滑动
+    var startX = 0;
+    var moveX = 0;
+    var flag = false;
+    oUl.addEventListener('touchstart', function(e) {
+        startX = e.targetTouches[0].pageX;
+
+        // 手指触摸的时候就停止定时器，不然一边拖着跑一边定时器也跑
+        clearInterval(timer);
+    });
+    oUl.addEventListener('touchmove', function(e) {
+        // 计算移动距离
+        moveX = e.targetTouches[0].pageX - startX;
+
+        // 盒子原来的位置 + 手指移动的距离
+        var translateX = - iNow * oneWid + moveX;
+
+        // 手指拖动的时候不需要动画，需要去掉过度
+        oUl.style.transition = 'none';
+        oUl.style.transform = 'translateX('+ translateX +'px)';
+
+        // 证明移动了
+        flag = true;
+
+        // 如果有多屏，会有默认的滚动行为，需要阻止🤫
+        e.preventDefault();
+    });
+
+    oUl.addEventListener('touchend', function() {
+        if(flag) {
+            if(Math.abs(moveX) > 50) {
+                // 如果是右滑，moveX是正值，就播放上一张
+                if(moveX > 0) {
+                    iNow --;
+                } else {
+                    iNow ++;
+                }
+
+                var translateX = - iNow * oneWid;
+                // 因为 touchmove 的时候去掉了过度，这里需要再加上
+                oUl.style.transition = 'all .3s';
+                oUl.style.transform = 'translateX('+ translateX +'px)';
+            } else {
+                var translateX = - iNow * oneWid;
+                oUl.style.transition = 'all .3s';
+                oUl.style.transform = 'translateX('+ translateX +'px)';
+            }
+        }
+
+        // 手指离开开启定时器
+        clearInterval(timer);
+        timer = setInterval(() => {
+            iNow ++;
+            oUl.style.transition = 'all .3s';
+            oUl.style.transform = 'translateX('+ -iNow * oneWid +'px)';
+        }, 2000);
+    });
     </script>
 </body>
 </html>
