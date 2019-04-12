@@ -88,10 +88,13 @@
     var oWrap = document.querySelector('.wrap');
     var oUl = document.querySelector('ul');
     
-    // 前后各补一张
+    // 前后各补一张 3、1、2、3、1
+    // 不能直接 appendChild，appendChild相当于删除之前的再添加，只是交换了位置而已
+    // oUl.appendChild(aUlLis[0]);
     oUl.appendChild( oUl.children[0].cloneNode(true) );
     oUl.insertBefore( oUl.children[oUl.children.length - 2].cloneNode(true), oUl.children[0] );
     
+    // 要在插入后获取，或者直接用 oUl.children 多好
     var aUlLis = oUl.getElementsByTagName('li');
 
     var oOl = document.querySelector('ol');
@@ -139,6 +142,7 @@
     var moveX = 0;
     var flag = false;
     oUl.addEventListener('touchstart', function(e) {
+        moveX = 0; // 注意每次点击时这里需要重置为0，不然第一次移动得到 moveX，下次再次点击不进行移动 touchend还是会得到这个moveX，而造成点击移动的bug
         startX = e.targetTouches[0].pageX;
 
         // 手指触摸的时候就停止定时器，不然一边拖着跑一边定时器也跑
@@ -148,7 +152,8 @@
         // 计算移动距离
         moveX = e.targetTouches[0].pageX - startX;
 
-        // 盒子原来的位置 + 手指移动的距离
+        // 盒子原来的位置 + 手指移动的距离，不仅仅是 moveX
+        // 注意 -(2x3+4) 与 -2*3+4 是完全不一样的！！！
         var translateX = - iNow * oneWid + moveX;
 
         // 手指拖动的时候不需要动画，需要去掉过度
@@ -183,7 +188,7 @@
             }
         }
 
-        // 手指离开开启定时器
+        // 手指离开开启定时器，开启一个定时器前记得先清除定时器
         clearInterval(timer);
         timer = setInterval(() => {
             iNow ++;
