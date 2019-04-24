@@ -50,3 +50,22 @@ console.log( isNaN('18') ); // false
 console.log( isNaN( Number('18') ) ); // false
 ```
 
+## 关于 parseInt() 和 Number()
+
+parseInt() 比较'牛'一点，例如它可以进行如下转换：
+
+```javascript
+parseInt('233px'); // 233
+```
+
+但是 Number() 就搞不定上面的事情，例如：
+
+```javascript
+Number('233px'); // NaN
+```
+
+Number() 只能搞定纯数字的字符串，例如：
+
+```javascript
+Number('233'); // 233
+```
