@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var num1 = prompt('请您输入第一个值：');
+    var num2 = prompt('请您输入第二个值：');
+
+    // 由于 num1 和 num2 得到的都是字符串，两个字符串进行比较的时候  分别比较的是字符串中的第一个字符ASCII码，这并不是我们想要的
+    
+    // 注意这里 parseFloat 后还要把结果重新赋值给 num1 和 num2
+    num1 = parseFloat(num1);
+    num2 = parseFloat(num2);
+
+    /* if(num1 > num2) {
+        alert('最大值是：' + num1);
+    } else if(num1 < num2) {
+        alert('最大值是：' + num2);
+    } else {
+        alert('老铁，两个值相等');
+    } */
+
+    // 把上面的改成三元运算符
+
+    alert( num1 > num2 ? '最大值是：' + num1 : (num1 < num2 ? '最大值是：' + num2 : '老铁，两个值相等') );
+    </script>
+</body>
+</html>

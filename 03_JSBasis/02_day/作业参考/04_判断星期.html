@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 1 号是星期三
+    // 2 号是星期四
+    // 3 号是星期五
+    // 4 号是星期六
+    // 5 号是星期日
+    // 6 号是星期一
+    // 7 号是星期二
+    // 8 号是星期三
+    var day = prompt('请输入今天是几号：');
+    var week = day % 7;
+    
+    // 后面有简单的办法实现，不用这么这么多 switch case 这样麻烦
+    switch(week) {
+        case 1:
+            week = '三';
+        break;
+        case 2:
+            week = '四';
+        break;
+        case 3:
+            week = '五';
+        break;
+        case 4:
+            week = '六';
+        break;
+        case 5:
+            week = '日';
+        break;
+        case 6:
+            week = '一';
+        break;
+        case 0:
+            week = '二';
+        break;
+    }
+
+    alert('今天星期：' + week);
+    </script>
+</body>
+</html>

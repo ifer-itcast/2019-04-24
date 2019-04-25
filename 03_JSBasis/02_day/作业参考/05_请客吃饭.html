@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var monitorMoney = prompt('请翻出班长口袋的钱：');
+    // 从大到小！！
+    /* if(monitorMoney >= 2000) {
+        alert('请大家吃西餐');
+    } else if(monitorMoney >= 1500) {
+        alert('请大家吃快餐');
+    } else if(monitorMoney >= 1000) {
+        alert('请大家喝饮料');
+    } else if(monitorMoney >= 500) {
+        alert('请大家吃棒棒糖');
+    } else {
+        alert('下次把钱带够');
+    } */
+
+    /* var temp = parseInt(monitorMoney / 500);
+    // 为什么上面选取的是500，技巧：找它们之间的最大公约数，然后把完全不确定的那一项放到default里面
+    // 这时候就不能从大到小了
+    // 因为假如用户输入的是3000、4000、5000... 其除以500的最终结果是不确定的，我们无法通过 case 去定义这个值，所以大的数字的逻辑我们只能放到 default 里面
+    // 对于除以500确定的值可以放到前面
+    switch(temp) {
+        case 0:
+            alert('下次把钱带够');
+        break;
+        case 1:
+            alert('请大家吃棒棒糖');
+        break;
+        case 2:
+            alert('请大家喝饮料');
+        break;
+        case 3:
+            alert('请大家吃快餐');
+        break;
+        default:
+            alert('请大家吃西餐');
+    } */
+
+
+    // 我见有同学写 switch 是下面的写法
+    // 首先这种写法语法层面完全是没有问题的，但执行逻辑还是向我们的 if else 那样的吗？？
+    switch(monitorMoney) {
+        case monitorMoney >= 2000:
+            alert('请大家吃西餐');
+        break;
+        case monitorMoney >= 1500:
+            alert('请大家吃快餐');
+        break;
+        case monitorMoney >= 1000:
+            alert('请大家喝饮料');
+        break;
+        case monitorMoney >= 500:
+            alert('请大家吃快餐');
+        break;
+        default:
+            alert('下次把钱带够');
+    }
+    </script>
+</body>
+</html>

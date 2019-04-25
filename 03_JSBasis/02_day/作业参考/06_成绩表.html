@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var score = prompt('请输入分数：');
+    /* if(score >= 90) {
+        alert('A');
+    } else if(score >= 80) {
+        alert('B');
+    } else if(score >= 70) {
+        alert('C');
+    } else if(score >= 60) {
+        alert('D');
+    } else {
+        alert('E');
+    } */
+
+    // 为什么选10，同样选他们之间的最大公约数，然后把完全不确定的那一项放到default里面
+    score = parseInt(score / 10);
+    // 首先我们要明白哪里是不确定的，哪里是不确定的哪里就放到 default里面
+    // 是多少分制我们是不知道的，也可能是1000分，所以大于90的要放到default里面，因为90以上的数字除以10取整后会得到N多个结果，是不确定的
+    switch(score) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+            alert('E');
+        break;
+        case 6:
+            alert('D');
+        break;
+        case 7:
+            alert('C');
+        break;
+        case 8:
+            alert('B');
+        break;
+        default:
+            alert('A');
+    }
+    </script>
+</body>
+</html>

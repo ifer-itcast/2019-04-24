@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 凌晨：0时至5时
+    // 早晨：5时至8时
+    // 上午：8时至11时
+    // 中午：11时至13时
+    // 下午：13时至16时
+    // 傍晚：16时至19时
+    // 晚上：19时至24时
+
+    var time = prompt('请您输入当前时间：');
+    // 记住一点：从大到小进行判断！技巧
+    if(time > 24) {
+        alert('您不在人间');
+    } else if(time >= 19) {
+        alert('晚上好');
+    } else if(time >= 16) {
+        alert('傍晚好');
+    } else if(time >= 13) {
+        alert('下午好');
+    } else if(time >= 11) {
+        alert('中午好');
+    } else if(time >= 8) {
+        alert('上午好');
+    } else if(time >= 5) {
+        alert('早晨好');
+    } else if(time >= 0) {
+        alert('凌晨好');
+    }
+    </script>
+</body>
+</html>
