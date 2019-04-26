@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 注意声明我推荐写在外面，而不是do里面
+    /* var userName, passWord;
+    do {
+        userName = prompt('请输入用户名：');
+        passWord = prompt('请输入密码：');
+    } while(userName !== 'admin' && passWord !== '123456'); */
+
+
+    var userName = prompt('请输入用户名：');
+    var passWord = prompt('请输入密码：');
+
+    while(userName != 'admin' && passWord != '123456') {
+        userName = prompt('请输入用户名：');
+        passWord = prompt('请输入密码：');
+    }
+    alert('恭喜老铁，输入正确💕');
+    </script>
+</body>
+</html>

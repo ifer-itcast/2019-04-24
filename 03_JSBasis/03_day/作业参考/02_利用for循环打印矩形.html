@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var str = '';
+    for(var i = 1; i <= 25; i ++) {
+        str += '🤣';
+        // 假如上面的 i 是从 0 开始的，那就需要 (i+1) % 5
+        if(i % 5 == 0) {
+            str += '\n';
+        }
+    }
+    console.log(str);
+    </script>
+</body>
+</html>

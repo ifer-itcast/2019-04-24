@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var str = '尊敬的客户您好，请输入您要进行的操作：\n1.存钱\n2.取钱\n3.显示余额\n4.退出';
+    // 注意 prompt 返回的是字符串，为了能和下面的 switch 中的 case 的数值型完全相等我们需要进行转换
+    var result = parseFloat( prompt(str) );
+    
+    var money = 100;
+    switch(result) {
+        case 1:
+            var m = prompt('请您输入存的钱数：');
+            m = parseFloat(m);
+            // 注意我后面的括号，如果不带括号会怎样，你也可以新建一个变量提取出来
+            alert('您现在的金额是：' + (money + m));
+        break;
+        case 2:
+            var m = prompt('请您输入要取的钱数：');
+            m = parseFloat(m);
+            alert('您现在的金额是：' + (money - m));
+        break;
+        case 3:
+            alert('您现在的余额是：' + money);
+        break;
+        case 4:
+            alert('您正在退出...');
+        break;
+    }
+    </script>
+</body>
+</html>

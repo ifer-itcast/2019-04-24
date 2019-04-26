@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 求1-100之间的和与平均值
+    var sum = 0;
+    for(var i = 1; i <= 100; i ++) {
+        sum += i;
+    }
+    console.log(sum, sum/100);
+
+    // 求1-100之间所有偶数的和
+    var eventSum = 0;
+    for(var i = 0; i <= 100; i ++) {
+        // 关键在于：如何判断偶数，用到了我们前面学的求余
+        if(i % 2 == 0) {
+            eventSum += i;
+        }
+    }
+    console.log(eventSum);
+
+    // 求1-100之间7的倍数的总和
+    var sevenSum = 0;
+    for(var i = 1; i <= 100; i ++) {
+        if(i % 7 == 0)
+        sevenSum += 100;
+    }
+    console.log(sevenSum);
+    </script>
+</body>
+</html>

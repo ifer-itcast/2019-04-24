@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 求整数1～100的累加值，但要求跳过所有个位为3的数
+    // 3、13、23 ...
+    /* var sum = 0;
+    for(var i = 1; i <= 100; i ++) {
+        if(i % 10 != 3) {
+            sum += i;
+        }
+    }
+    console.log(sum); */
+
+    // 题目要求我们用 break
+    var sum = 0;
+    for(var i = 1; i <= 100; i ++) {
+        if(i % 10 == 3) {
+            continue;
+        }
+        sum += i;
+    }
+    console.log(sum);
+    </script>
+</body>
+</html>
