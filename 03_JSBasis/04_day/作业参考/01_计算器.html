@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var opration = prompt('请选择要进行的运算：\n1. +\n2. -\n3. x\n4. ÷');
+    opration = parseInt(opration);
+
+    var num1 = parseFloat( prompt('请输入第一个数：') );
+    var num2 = parseFloat( prompt('请输入第二个数：') );
+
+    function calc(n1, n2) {
+        switch(opration) {
+            case 1:
+                alert('相加的结果是：'+ (n1 + n2));
+            break;
+            case 2:
+                alert('相减的结果是：'+ (n1 - n2));
+            break;
+            case 3:
+                alert('相乘的结果是：'+ (n1 * n2));
+            break;
+            case 4:
+                alert('相除的结果是：'+ (n1 / n2));
+            break;
+        }
+    }
+    calc(num1, num2);
+    </script>
+</body>
+</html>

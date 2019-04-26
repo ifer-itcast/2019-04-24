@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var num1 = parseFloat( prompt('请输入第一个数：') );
+    var num2 = parseFloat( prompt('请输入第二个数：') );
+    function getMax(n1, n2) {
+        if(n1 > n2) {
+            return n1;
+        } else if(n1 < n2) {
+            return n2;
+        } else {
+            return '老铁，两个一样大';
+        }
+    }
+    var max = getMax(num1, num2);
+    alert(max);
+    </script>
+</body>
+</html>
