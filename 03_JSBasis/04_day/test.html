@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+var num = parseFloat(prompt('请输入一个数字：'));
+var oBar = false;
+function isPrime(num) {
+    for (i = 2; i <= num - 1; i++) {
+        // 假如是素数 7，那么 7 除以 2 ~ 6 之间的数必定是小数，然后用最后的结果小数（例如1.333）和取整后的数字，例如（1）相比较
+        // 如果每次的结果都是不相等的，那也就能证明这个数是素数，这位同学是根据这个条件去判断的，比较麻烦，因为我们要统计到最后才能知道到底是不是完全都是不相等的
+        var decimal = num / i;
+        var integer = parseInt(num / i);
+        if (decimal == integer) {
+            // 如果有一次的结果竟然是相等的，例如 8/2 和 parseInt(8/2) 结果就是相等的（说明已经不是素数了），那么后面的就不需要再进行下去了
+            oBar = true;
+            break;
+        }
+    }
+    return oBar ? num + '不是素数' : num + '是素数';
+}
+var result = isPrime(num)
+alert(result)
+    </script>
+</body>
+
+</html>
