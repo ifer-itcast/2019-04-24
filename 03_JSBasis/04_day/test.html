@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+var newArr = [];
+
+function test(arr) {
+    for(var i = 0; i < arr.length; i ++) {
+        newArr[newArr.length] = arr[arr.length - 1 - newArr.length];
+    }
+    console.log(newArr);
+}
+
+test([1, 2, 3, 4, 5, 6, 7]);
+test([1, 2, 3, 4, 5, 6, 7]);
+
+
+    </script>
+</body>
+
+</html>
