@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var str = 'abaasdffggghhjjkkgfddsssss3444343';
+    // 1、 字符串的长度
+    // console.log(str.length);
+
+    // 2、 取出指定位置的字符，如：0,3,5,9等 
+    // str.charAt
+
+    // 3、 查找指定字符是否在以上字符串中存在，如：i，c ，b等 
+    // str.indexOf('i')
+
+    // 4、 替换指定的字符，如：g替换为22,ss替换为b等操作方法 
+    /* while(str.indexOf('g') != -1) {
+        str = str.replace('g', '22');
+    }
+    console.log(str);
+
+    while(str.indexOf('ss', 'b') != -1) {
+        str = str.replace('ss', 'b');
+    }
+    console.log(str); */
+
+    // 5、 截取指定开始位置到结束位置的字符串，如：取得1-5的字符串
+    // slice(start, end) // 支持负值
+    // substring(start, end)
+
+    // 6、 找出以上字符串中出现次数最多的字符和出现的次数
+    /* var o = {};
+    for(var i = 0; i < str.length; i ++) {
+        var chars = str.charAt(i);
+        if(o[chars]) {
+            o[chars] ++;
+        } else {
+            o[chars] = 1;
+        }
+    }
+
+    var max = 0;
+    var ch = '';
+    for(var attr in o) {
+        if(o[attr] > max) {
+            max = o[attr];
+            ch = attr;
+        }
+    }
+    console.log(max, ch); */
+
+    // 7、 遍历字符串，并将遍历出的字符两头添加符号“@”
+    var newStr = '';
+    for(var i = 0; i < str.length; i ++) {
+        newStr += str.charAt(i);
+    }
+    str = '@' + newStr + '@';
+    console.log(str);
+    </script>
+</body>
+</html>

@@ -1,36 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <script>
-    var opration = prompt('请选择要进行的运算：\n1. +\n2. -\n3. x\n4. ÷');
-    opration = parseInt(opration);
+        /* var oBar = true;
 
-    var num1 = parseFloat( prompt('请输入第一个数：') );
-    var num2 = parseFloat( prompt('请输入第二个数：') );
+        do {
+            var opration = prompt('请选择要进行的运算：\n1. 加法运算\n2. 减法运算\n3. 乘法运算\n4. 除法运算\n5. 退出');
+            opration = parseInt(opration);
 
-    function calc(n1, n2) {
-        switch(opration) {
-            case 1:
-                alert('相加的结果是：'+ (n1 + n2));
-            break;
-            case 2:
-                alert('相减的结果是：'+ (n1 - n2));
-            break;
-            case 3:
-                alert('相乘的结果是：'+ (n1 * n2));
-            break;
-            case 4:
-                alert('相除的结果是：'+ (n1 / n2));
-            break;
+            if(opration != 5) {
+                var num1 = parseFloat(prompt('请输入第一个数：'));
+                var num2 = parseFloat(prompt('请输入第二个数：'));
+            }
+            switch (opration) {
+                case 1:
+                    alert('相加的结果是：' + (num1 + num2));
+                    break;
+                case 2:
+                    alert('相减的结果是：' + (num1 - num2));
+                    break;
+                case 3:
+                    alert('相乘的结果是：' + (num1 * num2));
+                    break;
+                case 4:
+                    alert('相除的结果是：' + (num1 / num2));
+                    break;
+                case 5:
+                    alert('退出...');
+                    oBar = false;
+            }
+        } while (oBar); */
+
+        // 利用函数
+        function calc() {
+            var num1 = parseFloat(prompt('请输入第一个数：'));
+            var num2 = parseFloat(prompt('请输入第二个数：'));
+            return [num1, num2];
         }
-    }
-    calc(num1, num2);
+
+        var oBar = true;
+
+        do {
+            var opration = prompt('请选择要进行的运算：\n1. 加法运算\n2. 减法运算\n3. 乘法运算\n4. 除法运算\n5. 退出');
+            opration = parseInt(opration);
+
+            switch (opration) {
+                case 1:
+                    var arr = calc();
+                    alert('相加的结果是：' + (arr[0] + arr[1]));
+                    break;
+                case 2:
+                    var arr = calc();
+                    alert('相减的结果是：' + (arr[0] - arr[1]));
+                    break;
+                case 3:
+                    var arr = calc();
+                    alert('相乘的结果是：' + (arr[0] * arr[1]));
+                    break;
+                case 4:
+                    var arr = calc();
+                    alert('相除的结果是：' + (arr[0] / arr[1]));
+                    break;
+                case 5:
+                    alert('退出...');
+                    oBar = false;
+            }
+        } while (oBar);
+
+
     </script>
 </body>
+
 </html>
