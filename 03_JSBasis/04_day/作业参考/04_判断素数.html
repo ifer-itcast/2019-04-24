@@ -13,7 +13,7 @@
     // 注意 parseInt 后要别忘了重新赋值给 num
     num = parseInt(num);
 
-    function isPrime(n) {
+    /* function isPrime(n) {
         var count = 0;
         // 一个数至少满足能被1和自己整除，加起来也就是两次
         // 如果只有这两次是不是就可以证明这个数就是质数
@@ -26,6 +26,22 @@
             return '是质数';
         } else {
             return '不是质数';
+        }
+    } */
+
+    function isPrime(n) {
+        var bBar = false;
+        for(var i = 2; i < n; i ++) {
+            // 查找效率比上面高！如果发现中间有一个数能被整除，就退出了
+            if(n % i == 0) {
+                bBar = true;
+                break;
+            }
+        }
+        if(bBar) {
+            return '非质数';
+        } else {
+            return '是质数';
         }
     }
     alert( isPrime(num) );
