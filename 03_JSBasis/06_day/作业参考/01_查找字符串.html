@@ -9,58 +9,119 @@
 <body>
     <script>
     var str = 'abaasdffggghhjjkkgfddsssss3444343';
-    // 1、 字符串的长度
-    // console.log(str.length);
 
-    // 2、 取出指定位置的字符，如：0,3,5,9等 
-    // str.charAt
+    console.log(str.length);
+    // 取出指定位置的字符，如：0,3,5,9等 
 
-    // 3、 查找指定字符是否在以上字符串中存在，如：i，c ，b等 
-    // str.indexOf('i')
+    // indexOf、charAt(index)
+    /* console.log( str.charAt(0) );
+    console.log( str.charAt(3) );
+    console.log( str.charAt(5) );
+    console.log( str.charAt(9) ); */
+
+    // 没必要老铁！！
+    /* function getChar(num) {
+        return str.charAt(num)
+    }
+    console.log( getChar(0) );
+    console.log( getChar(3) );
+    console.log( getChar(5) );
+    console.log( getChar(9) ); */
+
+    // 查找指定字符是否在以上字符串中存在，如：i，c ，b等 
+
+    /* if( str.indexOf('i') == -1) {
+        console.log('不存在i');
+    } else {
+        console.log('存在i');
+    }
+    if( str.indexOf('c') == -1) {
+        console.log('不存在c');
+    } else {
+        console.log('存在c');
+    }
+    if( str.indexOf('b') == -1) {
+        console.log('不存在b');
+    }  else {
+        console.log('存在b');
+    } */
+
+    /* function isCunzai(char) {
+        if( str.indexOf(char) == -1) {
+            console.log('不存在' + char);
+        } else {
+            console.log('存在' + char);
+        }
+    }
+    isCunzai('i');
+    isCunzai('c');
+    isCunzai('b'); */
+
 
     // 4、 替换指定的字符，如：g替换为22,ss替换为b等操作方法 
-    /* while(str.indexOf('g') != -1) {
-        str = str.replace('g', '22');
-    }
-    console.log(str);
 
-    while(str.indexOf('ss', 'b') != -1) {
-        str = str.replace('ss', 'b');
+    /* // 对字符串的操作一定要重新赋值！！！！
+    str = str.replace('g', 22);
+    console.log(str);
+    // 如果下面的写法确实是只会替换第一次碰到的ss
+    str = str.replace('ss', 'b');
+    console.log(str); */
+
+
+    /* while(true) {
+        // 关键：判断还有没有g！！！！！
+        if(str.indexOf('g') != -1){
+            str = str.replace('g', 22);
+        } else {
+            break;
+        }
     }
     console.log(str); */
 
     // 5、 截取指定开始位置到结束位置的字符串，如：取得1-5的字符串
-    // slice(start, end) // 支持负值
-    // substring(start, end)
 
-    // 6、 找出以上字符串中出现次数最多的字符和出现的次数
-    /* var o = {};
+    // str.substr(start, length)
+
+    // str = str.slice(1, 5);
+    // console.log(str); // baas
+
+    // console.log(str.slice(1, 5)); // baas
+
+    // var res = str.slice(1, 5);
+    // var res = str.substring(1, 5);
+    // console.log(res); // baas
+
+
+    // 找出以上字符串中出现次数最多的字符和出现的次数 
+
+    /* var obj = {};
     for(var i = 0; i < str.length; i ++) {
-        var chars = str.charAt(i);
-        if(o[chars]) {
-            o[chars] ++;
+        var ch = str.charAt(i);
+        // a,b, c， obj['a']
+        if(obj[ch]) {
+            obj[ch]++;
         } else {
-            o[chars] = 1;
+            obj[ch] = 1;
         }
     }
-
     var max = 0;
-    var ch = '';
-    for(var attr in o) {
-        if(o[attr] > max) {
-            max = o[attr];
-            ch = attr;
+    var ch2 = '';
+    for(var key in obj) {
+        if(obj[key] > max) {
+            max = obj[key];
+            ch2 = key;
         }
     }
-    console.log(max, ch); */
+    console.log('出现最多的字符是：' + ch2 + '，出现的次数是：' + max); */
 
-    // 7、 遍历字符串，并将遍历出的字符两头添加符号“@”
-    var newStr = '';
+    // 遍历字符串，并将遍历出的字符两头添加符号“@”
+
+    var str2 = '';
+
     for(var i = 0; i < str.length; i ++) {
-        newStr += str.charAt(i);
+        str2 += '@' + str.charAt(i);
     }
-    str = '@' + newStr + '@';
-    console.log(str);
+    console.log(str2.concat('@'));
     </script>
 </body>
 </html>
