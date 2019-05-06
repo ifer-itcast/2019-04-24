@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    table{
+        min-width: 300px;
+    }
+    table, tr, th, td{
+        border: 1px solid #333;
+    }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <p>请输入姓名：<input type="text" id="username"></p>
+        <p>请输入邮箱：<input type="text" id="email"></p>
+        <button id="btn">添加</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>邮箱</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <script>
+    var oWrap = document.querySelector('#wrap');
+    var oUsername = oWrap.querySelector('#username');
+    var oEmail = oWrap.querySelector('#email');
+    var oBtn = oWrap.querySelector('#btn');
+    var oTbody = document.querySelector('tbody');
+
+    oBtn.onclick = function() {
+        // 获取值
+        var sUsername = oUsername.value;
+        var sEmail = oEmail.value;
+
+        // step1: 创建 tr
+        var oTr = document.createElement('tr');
+        // step2: 创建 td，装姓名
+        var oTd = document.createElement('td');
+        oTd.innerHTML = sUsername;
+        // step3: 插入到 tr
+        oTr.appendChild(oTd);
+
+        // step4: 继续创建 td，装邮箱
+        var oTd = document.createElement('td');
+        oTd.innerHTML = sEmail;
+        // step5: 继续插入到 tr
+        oTr.appendChild(oTd);
+
+        // step5: tr 插入到 tbody
+        oTbody.insertBefore(oTr, oTbody.children[0]);
+    };
+    </script>
+</body>
+</html>
