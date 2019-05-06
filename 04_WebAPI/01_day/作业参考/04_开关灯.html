@@ -10,14 +10,26 @@
     <button id="btn">开关</button>
     <script>
     var oBtn = document.querySelector('button');
-    var oBar = true;
+    // 第一种方法
+    /* var oBar = true;
     oBtn.addEventListener('click', function() {
         if(oBar) {
             document.body.style.backgroundColor = '#000';
-            oBar = false;
         } else {
             document.body.style.backgroundColor = '#fff';
-            oBar = true;
+        }
+        oBar = !oBar;
+    }); */
+
+    // 第二种方法：原理和上面是一样的
+    var flag = 1;
+    oBtn.addEventListener('click', function() {
+        if(flag === 1) {
+            document.body.style.backgroundColor = '#000';
+            flag = 0;
+        } else {
+            document.body.style.backgroundColor = '#fff';
+            flag = 1;
         }
     });
     </script>

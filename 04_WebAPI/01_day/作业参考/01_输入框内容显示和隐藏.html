@@ -9,7 +9,7 @@
     input{
         outline: none;
         border: 1px solid #ccc;
-
+        color: #ccc;
     }
     </style>
 </head>
@@ -21,12 +21,14 @@
         if(this.value == "用户名") {
             this.value = '';
         }
+        this.style.color = '#333';
         this.style.borderColor = 'pink';
     };
     aBtns[0].onblur = function() {
         if(this.value == "") {
             this.value = "用户名";
         }
+        this.style.color = '#ccc';
         this.style.borderColor = '#ccc';
     };
     </script>

@@ -5,10 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+    ul {
+        padding-left: 0;
+    }
+    li {
+        list-style: none;
+    }
+    h3{
+        margin: 0;
+        padding: 4px 0;
+    }
+    #wrap {
+        width: 100px;
+    }
+    #title{
+        text-align: center;
+        cursor: pointer;
+        background-color: #ccc;
+        margin: 0;
+    }
+    #list{
+        display: none;
+        text-align: center;
+    }
+    #list li {
+        background-color: rgba(44, 236, 162, .2);
+        padding: 3px 10px;
+    }
+    #list li:hover{
+        background-color: rgba(44, 236, 162, .8);
+    }
+    </style>
 </head>
 <body>
+    <ul id="wrap">
+        <li id="title">
+            <h3>微博</h3>
+            <ul id="list">
+                <li>私信</li>
+                <li>评论</li>
+                <li>@我</li>
+            </ul>
+        </li>
+    </ul>  
     <script>
-        
+    var oWrap = document.querySelector('#wrap');
+    var oTitle = document.querySelector('#title');
+    var oList = document.querySelector('#list');
+
+    oTitle.onmouseover = function() {
+        oList.style.display = 'block';
+    };
+    oTitle.onmouseout = function() {
+        oList.style.display = 'none';
+    };
+
     </script>
 </body>
 </html>
