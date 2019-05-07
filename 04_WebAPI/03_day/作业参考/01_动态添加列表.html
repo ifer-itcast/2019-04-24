@@ -7,6 +7,33 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <ul>
+        <li>西斯</li>
+        <li>貂蝉</li>
+        <li>贵妃</li>
+    </ul>
+    <input type="text" placeholder="请输入美女">
+    <button>添加</button>
+    <script>
+    var oUl = document.querySelector('ul');
+    var aLi = oUl.getElementsByTagName('li');
+
+    var oInput = document.querySelector('input');
+    var oBtn = document.querySelector('button');
+
+    oUl.addEventListener('click', function(e) {
+        for(var i = 0; i < aLi.length; i ++) {
+            aLi[i].style.backgroundColor = '';
+        }
+        e.target.style.backgroundColor = 'pink';
+    });
+
+    oBtn.addEventListener('click', function() {
+        var sBeauty = oInput.value;
+        var oLi = document.createElement('li');
+        oLi.innerHTML = sBeauty;
+        oUl.insertBefore(oLi, oUl.children[0]);
+    });
+    </script>
 </body>
 </html>
