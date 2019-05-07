@@ -11,6 +11,10 @@
     <script>
     var oBox = document.querySelector('#box');
 
+    function addZero(num) {
+        return num < 10 ? '0' + num : num;
+    }
+
     function nowDate() {
         // 获取日期对象
         var oDate = new Date();
@@ -26,10 +30,15 @@
         day = arr[day];
         // 时
         var hours = oDate.getHours();
+        hours = addZero(hours);
         // 分
         var minutes = oDate.getMinutes();
+        minutes = addZero(minutes);
         // 秒
         var seconds = oDate.getSeconds();
+        seconds = addZero(seconds);
+
+        // 最终拼接
         var res = year + ' 年 ' + month + ' 月 ' + date + ' 日 ' + day + '  ' + hours + ':' + minutes + ':' + seconds;
 
         oBox.innerHTML = res;

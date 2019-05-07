@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+    var oBox = document.querySelector('#box');
+    // 未来的那个时间戳，固定的
+    var comingTime = new Date('2019-11-11 0:0:0').getTime();
+
+    function getTime() {
+        // 现在的时间戳，变化的
+        var nowTime = new Date().getTime();
+
+        // 差值，得到的是毫秒数
+        var distance = comingTime - nowTime;
+        
+        // 转为秒
+        distance = distance / 1000;
+
+        // 天
+        var day = parseInt(distance / 60 / 60 / 24);
+        // 时
+        var hours = parseInt(distance / 60 / 60 % 24);
+        // 分
+        var minutes = parseInt(distance / 60 % 60);
+        // 秒
+        var seconds = parseInt(distance % 60);
+
+        // 拼接
+        var res = day + ' 天 ' + hours + ' 时 ' + minutes + ' 分 ' + seconds + ' 秒';
+        
+        oBox.innerHTML = res;
+    }
+
+    getTime();
+
+    setInterval(getTime, 1000);
+    </script>
+</body>
+</html>
