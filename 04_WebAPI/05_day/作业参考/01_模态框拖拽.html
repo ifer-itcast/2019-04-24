@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #mask {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, .7);
+        display: none;
+    }
+    #dialog{
+        width: 400px;
+        height: 200px;
+        background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+    }
+    #dialog p {
+        margin-top: 80px;
+        text-align: center;
+    }
+    #close {
+        position: absolute;
+        top: 3px;
+        right: 5px;
+        cursor: pointer;
+    }
+    #title{
+        height: 30px;
+        background-color: #ccc;
+    }
+    </style>
+</head>
+<body>
+    <button>弹框</button>
+
+    <div id="mask"></div>
+    <div id="dialog">
+        <div id="title"></div>
+        <p>Hello world</p>
+        <span id="close">❌</span>
+    </div>
+    <script>
+    var oMask = document.querySelector('#mask');
+    var oDialog = document.querySelector('#dialog');
+    var oClose = document.querySelector('#close');
+    var oBtn = document.querySelector('button');
+    var oTitle = document.querySelector('#title');
+
+    function getPos(obj) {
+        var pos = {
+            x: 0,
+            y: 0
+        };
+        while(obj) {
+            pos.x += obj.offsetLeft;
+            pos.y += obj.offsetTop;
+            obj = obj.offsetParent;
+        }
+        return pos;
+    }
+
+    oBtn.onclick = function() {
+        oMask.style.display = 'block';
+        oDialog.style.display = 'block';
+    };
+
+    oClose.onclick = function() {
+        oMask.style.display = 'none';
+        oDialog.style.display = 'none';
+    };
+
+    oTitle.onmousedown = function(e) {
+        // 算出光标到模态框左边的举例
+        // e.clientX：到可视区
+        var disX = e.pageX - getPos(this).x;
+        var disY = e.pageY - getPos(this).y;
+
+        document.onmousemove = function(e) {
+            oDialog.style.left = e.pageX - disX + 'px';
+            oDialog.style.top = e.pageY - disY + 'px';
+        };
+
+        document.onmouseup = function() {
+            // 抬起的时候把onmousemove 干掉
+            document.onmousemove = null;
+            // 抬起之后这个 onmouseup 本身也没用了，也干掉
+            document.onmouseup = null;
+        };
+        // 阻止默认行为
+        return false;
+    };
+    </script>
+</body>
+</html>

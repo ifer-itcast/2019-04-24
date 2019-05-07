@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        var oBox = document.getElementById('box');
+
+        oBox.onmousedown = function(e) {
+            e = e || event;
+            var disX = e.clientX - this.offsetLeft;
+            var disY = e.clientY - this.offsetTop;
+            // 这里的 onmousemove 绑定在 div 上的，当拖动速度比较快的时候鼠标可能会脱离 div，这时候就尴尬了...
+            // 解决：需要把 onmousemove 绑定在 document 上，这时候怎么都拖不出去了
+            document.onmousemove = function(e) {
+                e = e || event;
+                oBox.style.left = e.clientX - disX + 'px';
+                oBox.style.top = e.clientY - disY + 'px';
+            };
+    
+            // 假如鼠标是在浏览器的书签页上抬起的，这时候也会有问题，所以 onmouseup 也要绑定在 document 上
+            document.onmouseup = function() {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            };
+        };
+
+
+    </script>
+</body>
+
+</html>

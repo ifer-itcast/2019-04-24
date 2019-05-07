@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        var oBox = document.getElementById('box');
+        // 低版本的 Firefox 在第二次拖拽空 div 时会有重影（注意这个 Bug 是 Firefox 自身的）
+        oBox.onmousedown = function (e) {
+            e = e || event;
+            var disX = e.clientX - this.offsetLeft;
+            var disY = e.clientY - this.offsetTop;
+            document.onmousemove = function (e) {
+                e = e || event;
+                oBox.style.left = e.clientX - disX + 'px';
+                oBox.style.top = e.clientY - disY + 'px';
+            };
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            };
+            // 在按下的那一瞬间阻止默认事件（火狐的重影）即可
+            return false;
+        };
+    </script>
+</body>
+
+</html>

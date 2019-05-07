@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    fsdfsd
+    fdsdfdsf
+    <div id="box">fdsfdsf</div>
+    fsdfsdf
+    <button id="btn">按钮</button>
+    <script>
+        var oBox = document.getElementById('box');
+        // 问题：拖拽时 IE7 会选中周围和自己 div 里面的文字，IE8 也会选中一点点自己 div 里面的文字，这并不是我们想要的
+
+        // 关于 setCapture
+        /* var oBtn = document.getElementById('btn');
+        oBtn.onclick = function () {
+            console.log('所有事件都集中在了我身上哈哈');
+        };
+        // 把页面上所有的事件都集中到 oBtn 身上，只有IE兼容
+        oBtn.setCapture(); */
+
+        /* oBox.onmousedown = function (e) {
+            e = e || event;
+            var disX = e.clientX - this.offsetLeft;
+            var disY = e.clientY - this.offsetTop;
+            oBox.onmousemove = function (e) {
+                e = e || event;
+                var left = e.clientX - disX;
+                var top = e.clientY - disY;
+                var maxW = document.documentElement.clientWidth - oBox.offsetWidth;
+                var maxH = document.documentElement.clientHeight - oBox.offsetHeight;
+                // 解决拖出去找不到的小问题
+                if (left < 0) {
+                    left = 0;
+                } else if (left > maxW) {
+                    left = maxW;
+                }
+
+                if (top < 0) {
+                    top = 0;
+                } else if (top > maxH) {
+                    top = maxH;
+                }
+                oBox.style.left = left + 'px';
+                oBox.style.top = top + 'px';
+            };
+            oBox.onmouseup = function () {
+                oBox.onmousemove = null;
+                oBox.onmouseup = null;
+
+                // 鼠标抬起的时候释放，不然想选文字也选不中了
+                oBox.releaseCapture();
+            };
+
+            // 这时候IE下文字也不会被选中了，因为他们身上发生的事件都集中到了oBox身上
+            oBox.setCapture();
+            // 其实 return false 也解决了火狐、Chrome、IE9以上选中文字的问题，但对于IE6-8的浏览器无能为力
+            return false;
+        }; */
+
+
+        // 兼容IE外的浏览器
+        /* oBox.onmousedown = function (e) {
+            e = e || event;
+            var disX = e.clientX - this.offsetLeft;
+            var disY = e.clientY - this.offsetTop;
+            if (oBox.setCapture) {
+                oBox.onmousemove = function (e) {
+                    e = e || event;
+                    var left = e.clientX - disX;
+                    var top = e.clientY - disY;
+                    // 解决拖出去找不到的小问题
+                    if (left < 0) {
+                        left = 0;
+                    } else if (left > document.documentElement.clientWidth - oBox.offsetWidth) {
+                        left = document.documentElement.clientWidth - oBox.offsetWidth;
+                    }
+
+                    if (top < 0) {
+                        top = 0;
+                    } else if (top > document.documentElement.clientHeight - oBox.offsetHeight) {
+                        top = document.documentElement.clientHeight - oBox.offsetHeight;
+                    }
+                    oBox.style.left = left + 'px';
+                    oBox.style.top = top + 'px';
+                };
+                oBox.onmouseup = function () {
+                    oBox.onmousemove = null;
+                    oBox.onmouseup = null;
+
+                    // 鼠标抬起的时候释放，不然想选文字也选不中了
+                    oBox.releaseCapture();
+                };
+
+                // 这时候IE下文字也不会被选中了，因为他们身上发生的事件都集中到了oBox身上
+                oBox.setCapture();
+            } else {
+                document.onmousemove = function (e) {
+                    e = e || event;
+                    var left = e.clientX - disX;
+                    var top = e.clientY - disY;
+                    var maxW = document.documentElement.clientWidth - oBox.offsetWidth;
+                    var maxH = document.documentElement.clientHeight - oBox.offsetHeight;
+                    // 解决拖出去找不到的小问题
+                    if (left < 0) {
+                        left = 0;
+                    } else if (left > maxW) {
+                        left = maxW;
+                    }
+
+                    if (top < 0) {
+                        top = 0;
+                    } else if (top > maxH) {
+                        top = maxH;
+                    }
+                    oBox.style.left = left + 'px';
+                    oBox.style.top = top + 'px';
+                };
+                document.onmouseup = function () {
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+                };
+            }
+            // 其实 return false 也解决了火狐、Chrome、IE9以上选中文字的问题，但对于IE6-8的浏览器无能为力
+            return false;
+        }; */
+
+
+        // 优化上面重复的代码
+        oBox.onmousedown = function (e) {
+            e = e || event;
+            var disX = e.clientX - this.offsetLeft;
+            var disY = e.clientY - this.offsetTop;
+            function mousemove(e) {
+                e = e || event;
+                var left = e.clientX - disX;
+                var top = e.clientY - disY;
+                var maxW = document.documentElement.clientWidth - oBox.offsetWidth;
+                var maxH = document.documentElement.clientHeight - oBox.offsetHeight;
+                // 解决拖出去找不到的小问题
+                if (left < 0) {
+                    left = 0;
+                } else if (left > maxW) {
+                    left = maxW;
+                }
+
+                if (top < 0) {
+                    top = 0;
+                } else if (top > maxH) {
+                    top = maxH;
+                }
+                oBox.style.left = left + 'px';
+                oBox.style.top = top + 'px';
+            }
+            function mouseup() {
+                this.onmousemove = null;
+                this.onmouseup = null;
+                // 鼠标抬起的时候释放，不然想选文字也选不中了
+                if (oBox.releaseCapture) {
+                    oBox.releaseCapture();
+                }
+            }
+            if (oBox.setCapture) {
+                oBox.onmousemove = mousemove;
+                oBox.onmouseup = mouseup;
+                // 这时候IE下文字也不会被选中了，因为他们身上发生的事件都集中到了oBox身上
+                oBox.setCapture();
+            } else {
+                document.onmousemove = mousemove;
+                document.onmouseup = mouseup;
+            }
+            // 其实 return false 也解决了火狐、Chrome、IE9以上选中文字的问题，但对于IE6-8的浏览器无能为力
+            return false;
+        };
+    </script>
+</body>
+
+</html>
