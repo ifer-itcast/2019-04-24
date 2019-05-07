@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #wrap {
+        margin: 50px;
+    }
+    #sm{
+        width: 300px;
+        height: 300px;
+        float: left;
+        border: 1px solid #333;
+        position: relative;
+    }
+    #mask{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        background-color: rgba(0,0,0, .3);
+        cursor: pointer;
+    }
+    #sm img{
+        width: 100%;
+        height: 100%;
+    }
+    #lg{
+        margin-left: 50px;
+        width: 400px;
+        height: 400px;
+        float: left;
+        border: 1px solid #333;
+        overflow: hidden;
+        position: relative;
+    }
+    #lg img{
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="sm">
+            <img src="./images/sm.png" alt="">
+            <div id="mask"></div>
+        </div>
+        <div id="lg">
+            <img src="./images/lg.jpg" alt="">
+        </div>
+    </div>
+    <script>
+    var oWrap = document.querySelector('#wrap');
+    var oSm = document.querySelector('#sm');
+    var oSmImg = oSm.querySelector('img');
+    var oMask = oSm.querySelector('#mask');
+    var oLg = document.querySelector('#lg');
+    var oLgImg = oLg.querySelector('img');
+
+    oMask.onmousedown = function(e) {
+        var disX = e.clientX - this.offsetLeft;
+        var disY = e.clientY - this.offsetTop;
+        document.onmousemove = function(e) {
+            var left = e.clientX - disX;
+            var top = e.clientY - disY;
+            var maxW = oSm.offsetWidth - oMask.offsetWidth;
+            var maxH = oSm.offsetHeight - oMask.offsetHeight;
+            if(left < 0) {
+                left = 0;
+            } else if(left > maxW) {
+                left = maxW;
+            }
+            if(top < 0) {
+                top = 0;
+            } else if(top > maxH) {
+                top = maxH;
+            }
+            // x 是大图片当前应该移动的数值
+            // 小图当前移动的数值 / 小图最大移动空间 = x / 大图最大移动空间
+            // left / (oSm.offsetWidth-oMask.offsetWidth) = x / (oLgImg.offsetWidth - oLg.offsetWidth)
+
+            oLgImg.style.left = - (oLgImg.offsetWidth - oLg.offsetWidth) * left / maxW + 'px';
+            oLgImg.style.top = - (oLgImg.offsetHeight - oLg.offsetHeight) * top / maxH + 'px';
+
+            oMask.style.left = left + 'px';
+            oMask.style.top = top + 'px';
+        };
+        document.onmouseup = function() {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        };
+        return false;
+    };
+    </script>
+</body>
+</html>
