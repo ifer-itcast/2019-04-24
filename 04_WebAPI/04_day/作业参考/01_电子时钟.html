@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+    var oBox = document.querySelector('#box');
+
+    function nowDate() {
+        // 获取日期对象
+        var oDate = new Date();
+        // 年
+        var year = oDate.getFullYear();
+        // 月
+        var month = oDate.getMonth() + 1;
+        // 日
+        var date = oDate.getDate();
+        // 星期几
+        var arr = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+        var day = oDate.getDay();
+        day = arr[day];
+        // 时
+        var hours = oDate.getHours();
+        // 分
+        var minutes = oDate.getMinutes();
+        // 秒
+        var seconds = oDate.getSeconds();
+        var res = year + ' 年 ' + month + ' 月 ' + date + ' 日 ' + day + '  ' + hours + ':' + minutes + ':' + seconds;
+
+        oBox.innerHTML = res;
+    }
+    nowDate();
+
+    setInterval(nowDate, 1000);
+    </script>
+</body>
+</html>
