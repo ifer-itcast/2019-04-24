@@ -5,30 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style>
-    .active{
-        background-color: #fff;
-    }
-    </style>
 </head>
 <body>
-    <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-    </ul>
+    <table>
+        <tbody>
+                <tr></tr>
+        </tbody>
+            <tr></tr>
+            <tr></tr>
+    </table>
     <script>
-    var aLi = document.querySelectorAll('li');
-    for(var i = 0; i < aLi.length; i ++) {
-        aLi[i].onmouseover = function() {
-            for(var i = 0; i < aLi.length; i ++) {
-                aLi[i].className = 'active';
-            }
-            this.style.backgroundColor = 'pink';
-        };
-    }
+    var aTr = document.querySelectorAll('tbody tr');
+    console.log(aTr.length); // 最后的长度竟然是3，tbody里面明明只有2个的
     </script>
 </body>
 </html>
