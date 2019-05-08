@@ -1,32 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-
 <body>
     <button>1</button>
     <button>2</button>
     <button>3</button>
+    <button>4</button>
     <script>
-var aBtns = document.querySelectorAll('button');
-var iNum = 0;
-for (var i = 0; i < aBtns.length; i++) {
-    aBtns[i].index = i;
-    aBtns[i].onclick = function () {
-        // step1: 先干掉第 0 个
-        aBtns[iNum].style.backgroundColor = '';
-        // step2: 再操作自己的
-        this.style.backgroundColor = 'pink';
-        // step3: 操作完后把操作的那个索引赋值给 iNum
-        iNum = this.index;
-    };
-}
+    var aBtn = document.querySelectorAll('button');
     </script>
 </body>
-
 </html>
