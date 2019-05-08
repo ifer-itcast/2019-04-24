@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <button>1</button>
     <button>2</button>
     <button>3</button>
     <button>4</button>
     <script>
-    var aBtn = document.querySelectorAll('button');
+var aBtn = document.querySelectorAll('button');
+for (var i = 0; i < aBtn.length; i++) {
+    let j = i;
+    aBtn[i].onclick = function() {
+        console.log(j);
+    };
+}
     </script>
 </body>
+
 </html>
