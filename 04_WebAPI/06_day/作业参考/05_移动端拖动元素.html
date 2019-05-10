@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background-color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        var oBox = document.querySelector('#box');
+        var disX = 0;
+        var disY = 0;
+        oBox.addEventListener('touchstart', function (e) {
+            disX = e.targetTouches[0].pageX - oBox.offsetLeft;
+            disY = e.targetTouches[0].pageY - oBox.offsetTop;
+        });
+
+        oBox.addEventListener('touchmove', function(e) {
+            oBox.style.left = e.targetTouches[0].pageX - disX + 'px';
+            oBox.style.top = e.targetTouches[0].pageY - disY + 'px';
+            // 阻止默认事件
+            e.preventDefault();
+        });
+
+        // 注意
+        // mousemove 时确实可能会脱出元素本身，但 touchmove 并不会，因为它是按下鼠标时才发生的
+
+        // PC 端在 mouseup 时之所以取消 mousemove 事件，因为如果不需要只要光标移动还是会触发 mousemove，div 也就会跟着走，这并不是我们所希望的
+
+        // 这里 touchend 时随意移动并不会触发 touchmove，所以也不必（也不能）取消
+
+        // 这里也不需要把 touchmove 一定放到 touchstart 函数内，因为即便不放里面它们本身也是有顺序关系的，先 touchstart 才能 touchmove
+    </script>
+</body>
+
+</html>

@@ -32,6 +32,10 @@
             var disY = e.clientY - this.offsetTop;
             // 这里的 onmousemove 绑定在 div 上的，当拖动速度比较快的时候鼠标可能会脱离 div，这时候就尴尬了...
             // 解决：需要把 onmousemove 绑定在 document 上，这时候怎么都拖不出去了
+
+            // 一定是写在里面
+            // 原因1：这样每次 onmousedown 后就会重新注册，如果写在外面只有第一次才会移动，下次就不行了（因为上次鼠标抬起就被干掉了mousemove事件）
+            // 原因2：它们二者之间是有顺序关系的，一定是先按下 div 后才能得到 disX 并移动。放到外面 document.onmousemove 最可能先触发，都不知道去哪里找 disX
             document.onmousemove = function(e) {
                 e = e || event;
                 oBox.style.left = e.clientX - disX + 'px';
