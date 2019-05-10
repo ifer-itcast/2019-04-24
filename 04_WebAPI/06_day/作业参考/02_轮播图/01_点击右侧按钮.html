@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .wrap {
+            width: 300px;
+            height: 150px;
+            margin: 60px auto 0;
+            position: relative;
+            /* overflow: hidden; */
+        }
+
+        .con {
+            position: absolute;
+            left: 0;
+            width: 400%;
+            height: 100%;
+        }
+
+        .con li {
+            width: 300px;
+            height: 150px;
+            line-height: 150px;
+            float: left;
+            color: #fff;
+            font-size: 60px;
+            text-align: center;
+        }
+
+        .con li.first {
+            background-color: red;
+        }
+
+        .con li.second {
+            background-color: green;
+        }
+
+        .con li.thrid {
+            background-color: blue;
+        }
+
+        .con li.four {
+            background-color: pink;
+        }
+
+        .dot {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dot li {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, .3);
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+
+        .dot .active {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, .8);
+            cursor: pointer;
+            font-size: 30px;
+            display: none;
+        }
+
+        .arrow:hover {
+            color: rgba(255, 255, 255, 1);
+        }
+
+        .arrow-left {
+            left: 0;
+        }
+
+        .arrow-right {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <ul class="con">
+            <li class="first">1</li>
+            <li class="second">2</li>
+            <li class="thrid">3</li>
+            <li class="four">4</li>
+        </ul>
+        <ol class="dot"></ol>
+        <span class="arrow arrow-left">&lt;</span>
+        <span class="arrow arrow-right">&gt;</span>
+    </div>
+    <script src="./animate.js"></script>
+    <script>
+    // 选择元素
+    var oWrap = document.querySelector('.wrap');
+    var oUl = oWrap.querySelector('.con');
+    var oOl = oWrap.querySelector('.dot');
+    var oLeft = oWrap.querySelector('.arrow-left');
+    var oRight = oWrap.querySelector('.arrow-right');
+    
+
+    // 先克隆第一个到最后
+    oUl.appendChild(oUl.children[0].cloneNode(true));
+    // 再选取所有 li
+    var aLi = oUl.querySelectorAll('li');
+    // 计算 oUl 的宽度
+    var iOneLiWidth = aLi[0].offsetWidth;
+    oUl.style.width = iOneLiWidth * aLi.length + 'px';
+
+
+    // 移入显示左右箭头
+    oWrap.onmouseover = function() {
+        oRight.style.display = 'block';
+        oLeft.style.display = 'block';
+    };
+    // 移出隐藏左右箭头
+    oWrap.onmouseout = function() {
+        oRight.style.display = 'none';
+        oLeft.style.display = 'none';
+    };
+
+
+    // 点击右侧按钮
+    var iNum = 0;
+    oRight.onclick = function() {
+        // 注意第一次点击这里的 iNum 依然是 0，是 iNum++ 之前进行的判断
+        if(iNum === aLi.length - 1) {
+            // 同样是到了最后一张并且再次点击的时候
+            oUl.style.left = 0;
+            iNum = 0;
+        }
+        iNum ++;
+
+        /* if(iNum === aLi.length) {
+            // 到了最后一张并且再次点击的时候
+            oUl.style.left = 0;
+            iNum = 1;
+        } */
+        animate(oUl, -iNum * iOneLiWidth);
+    };
+    </script>
+</body>
+
+</html>

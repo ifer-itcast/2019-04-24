@@ -28,22 +28,9 @@
 <body>
     <div></div>
     <div class="line"></div>
+    <script src="./animate.js"></script>
     <script>
     var oDiv = document.querySelector('div');
-    function animate(obj, target) {
-        clearInterval(obj.timer);
-        var speed = 0;
-        obj.timer = setInterval(function() {
-            speed = (target - obj.offsetLeft) / 7;
-            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
-
-            obj.style.left = obj.offsetLeft + speed + 'px';
-
-            if(obj.offsetLeft == target) {
-                clearInterval(obj.timer);
-            }
-        }, 15);
-    }
     animate(oDiv, 700);
     </script>
 </body>
