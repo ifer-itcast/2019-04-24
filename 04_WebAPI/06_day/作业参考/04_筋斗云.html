@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #wrap{
+        position: relative;
+    }
+    #wrap span{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 73px;
+        height: 24px;
+        background-color: pink;
+    }
+    #wrap ul{
+        padding-left: 0;
+        overflow: hidden;
+        position: relative;
+    }
+    #wrap li{
+        height: 22px;
+        float: left;
+        list-style-type: none;
+        margin-right: 20px;
+        border: 1px solid #333;
+        padding: 0 15px;
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <span></span>
+        <ul>
+            <li>列表1</li>
+            <li>列表2</li>
+            <li>列表3</li>
+            <li>列表4</li>
+        </ul>
+    </div>
+    <script src="./animate.js"></script>
+    <script>
+    var oWrap = document.querySelector('#wrap');
+    var oSpan = oWrap.querySelector('span');
+    var aLi = oWrap.querySelectorAll('li');
+    
+    var current = 0;
+
+    for(var i = 0; i < aLi.length; i ++) {
+        aLi[i].onmouseover = function() {
+            animate(oSpan, this.offsetLeft);
+        };
+        aLi[i].onmouseout = function() {
+            animate(oSpan, current);
+        };
+        aLi[i].onclick = function() {
+            current = this.offsetLeft;
+            animate(oSpan, current);
+        };
+    }
+    </script>
+</body>
+
+</html>
