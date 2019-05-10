@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<button id="btn1">添加元素</button>
+<ul id="ul1">
+    <li>0001</li>
+    <li>0002</li>
+    <li>0003</li>
+</ul>
+<script>
+var oBtn = document.querySelector('#btn1');
+var oUl = document.querySelector('#ul1');
+var aLi = oUl.querySelectorAll('li');
+
+// 事件委托的形式给每个 li 绑定事件
+oUl.onclick = function (e) {
+    console.log(e.target.innerHTML);
+};
+
+// 这样就不会有问题了，即便是点击新增的 li 元素，也会有事件效果，因为我们的事件是绑定在它的父级上的（会冒泡）
+oBtn.onclick = function () {
+    var oLi = document.createElement('li');
+    oLi.innerHTML = Math.floor(Math.random() * 100);
+    oUl.appendChild(oLi);
+};
+    </script>
+</body>
+
+</html>
