@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    div{
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+    }
+    .line{
+        position: absolute;
+        width: 1px;
+        height: 500px;
+        background-color: #000;
+        left: 700px;
+    }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div class="line"></div>
+    <script>
+    var oDiv = document.querySelector('div');
+    function animate(obj, target) {
+        clearInterval(obj.timer);
+        var speed = 0;
+        obj.timer = setInterval(function() {
+            speed = (target - obj.offsetLeft) / 7;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+            obj.style.left = obj.offsetLeft + speed + 'px';
+
+            if(obj.offsetLeft == target) {
+                clearInterval(obj.timer);
+            }
+        }, 15);
+    }
+    animate(oDiv, 700);
+    </script>
+</body>
+</html>
