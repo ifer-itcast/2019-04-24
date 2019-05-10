@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .wrap {
+            width: 300px;
+            height: 100px;
+            margin: 60px auto 0;
+            position: relative;
+            /* overflow: hidden; */
+        }
+
+        .con {
+            position: absolute;
+            left: -100%;
+            width: 500%;
+            height: 100%;
+        }
+
+        .con li {
+            width: 20%;
+            height: 100px;
+            line-height: 100px;
+            float: left;
+            color: #fff;
+            font-size: 60px;
+            text-align: center;
+        }
+
+        .con li.first {
+            background-color: red;
+        }
+
+        .con li.second {
+            background-color: green;
+        }
+
+        .con li.thrid {
+            background-color: blue;
+        }
+
+        .con li.four {
+            background-color: pink;
+        }
+
+        .dot {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dot li {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, .3);
+            margin: 0 5px;
+            transition: all .3s;
+        }
+
+        .dot .active {
+            width: 15px;
+            background-color: rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <ul class="con">
+            <li class="first">1</li>
+            <li class="second">2</li>
+            <li class="thrid">3</li>
+        </ul>
+        <ol class="dot">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </div>
+    <script>
+    // 获取元素
+    var oWrap = document.querySelector('.wrap');
+    var oUl = oWrap.querySelector('.con');
+    
+    var oOl = oWrap.querySelector('.dot');
+    var aOlLi = oOl.querySelector('li');
+
+    // 变成 3、1、2、3、1 的形式
+    // 注意一定要是克隆后的元素，不要是 oUl.children[0]，因为 appendChild 是先删后添
+    var firstLi = oUl.children[0].cloneNode(true);
+    var lastLi = oUl.children[oUl.children.length - 1].cloneNode(true);
+    oUl.appendChild(firstLi);
+    oUl.insertBefore(lastLi, oUl.children[0]);
+    var aUlLi = oUl.querySelectorAll('li');
+    </script>
+</body>
+
+</html>

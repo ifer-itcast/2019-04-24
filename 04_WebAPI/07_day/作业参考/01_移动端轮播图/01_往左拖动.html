@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .wrap {
+            width: 300px;
+            height: 100px;
+            margin: 60px auto 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .con {
+            position: absolute;
+            left: -100%;
+            width: 500%;
+            height: 100%;
+        }
+
+        .con li {
+            width: 20%;
+            height: 100px;
+            line-height: 100px;
+            float: left;
+            color: #fff;
+            font-size: 60px;
+            text-align: center;
+        }
+
+        .con li.first {
+            background-color: red;
+        }
+
+        .con li.second {
+            background-color: green;
+        }
+
+        .con li.thrid {
+            background-color: blue;
+        }
+
+        .con li.four {
+            background-color: pink;
+        }
+
+        .dot {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dot li {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, .3);
+            margin: 0 5px;
+            transition: all .3s;
+        }
+
+        .dot .active {
+            width: 15px;
+            background-color: rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <ul class="con">
+            <li class="first">1</li>
+            <li class="second">2</li>
+            <li class="thrid">3</li>
+        </ul>
+        <ol class="dot">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </div>
+    <script src="./animate.js"></script>
+    <script>
+    // 获取元素
+    var oWrap = document.querySelector('.wrap');
+    var oUl = oWrap.querySelector('.con');
+    
+    var oOl = oWrap.querySelector('.dot');
+    var aOlLi = oOl.querySelector('li');
+
+    // 变成 3、1、2、3、1 的形式
+    // 注意一定要是克隆后的元素，不要是 oUl.children[0]，因为 appendChild 是先删后添
+    var firstLi = oUl.children[0].cloneNode(true);
+    var lastLi = oUl.children[oUl.children.length - 1].cloneNode(true);
+    oUl.appendChild(firstLi);
+    oUl.insertBefore(lastLi, oUl.children[0]);
+    var aUlLi = oUl.querySelectorAll('li');
+    
+    // 一个 li 的宽度
+    var iOneWidth = aUlLi[0].offsetWidth;
+
+    // 首先让 oUl 能拖能动
+    var startX = 0;
+    var moveX = 0;
+    var iMoveNum = 0;
+    oWrap.addEventListener('touchstart', function(e) {
+        // 每次按下重置为 0，不然下次开始的时候会保留上次的 moveX，当保留的 moveX >= 50 时会导致点一下就会运动，这并不是我们所需要的
+        moveX = 0;
+        // 拖动的时候并不需要动画效果，只有 touchend 时自己运动时才需要
+        oUl.style.transition = 'none';
+
+        // 按下的位置
+        startX = e.targetTouches[0].pageX;
+    });
+
+    oWrap.addEventListener('touchmove', function(e) {
+        // 移动的位置
+        moveX = e.targetTouches[0].pageX - startX;
+        
+        // 这里首先可以确定都是负值了
+        var transX = -iMoveNum * iOneWidth + moveX;
+
+        oUl.style.transform = 'translateX('+ transX +'px)';
+    });
+
+    oWrap.addEventListener('touchend', function() {
+        // 注意是在 touchend 的时候运动的
+        if(Math.abs(moveX) >= 50) {
+            if(moveX > 0) {
+                // 说明从左往右拖的，需要显示前一张
+                iMoveNum --;
+            } else {
+                iMoveNum ++;
+            }
+        }
+
+        var transX = -iMoveNum * iOneWidth;
+        oUl.style.transition = '.3s';
+        oUl.style.transform = 'translateX('+ transX +'px)';
+    });
+    </script>
+</body>
+
+</html>
