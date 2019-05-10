@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    div{
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+    }
+    .line{
+        position: absolute;
+        width: 1px;
+        height: 500px;
+        background-color: #000;
+        left: 300px;
+    }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div class="line"></div>
+    <script>
+    var oDiv = document.querySelector('div');
+    function animate(obj, target) {
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function() {
+            obj.style.left = obj.offsetLeft + 9 + 'px';
+            if(obj.offsetLeft >= target) {
+                clearInterval(obj.timer);
+                // 有可能会超出去，例如当走 33 次的时候，此时是 297，最后又走了个 9，最后就是306，所以最好再拉一把
+                obj.style.left = target + 'px';
+            }
+        }, 10);
+    }
+    animate(oDiv, 300);
+    </script>
+</body>
+</html>
