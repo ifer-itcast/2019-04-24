@@ -116,7 +116,7 @@
         return false;
     }; */
 
-    var startX = 0;
+    /* var startX = 0;
     var startY = 0;
     var transX = 0;
     var transY = 0;
@@ -138,6 +138,29 @@
             
             startX = transX;
             startY = transY;
+        };
+        return false;
+    }; */
+
+    var moveX = 0;
+    var moveY = 0;
+    var startX = 0;
+    var startY = 0;
+    oBox.onmousedown = function(e) {
+        // 下次移动的时候用当前的 moveX 再加上 1 次原来的 moveX 就可以了，注意是 1 此，所以不能在 mousemove 中加
+        var originClientX = e.clientX;
+        var originClientY = e.clientY;
+        console.log(startX, startY)
+        document.onmousemove = function(e) {
+            moveX = e.clientX - originClientX + startX;
+            moveY = e.clientY - originClientY + startY;
+            oBox.style.transform = 'translate('+ moveX +'px, '+ moveY +'px)';
+        };
+        document.onmouseup = function() {
+            document.onmousemove = null;
+            document.onmouseup = null;
+            startX = moveX;
+            startY = moveY;
         };
         return false;
     };
