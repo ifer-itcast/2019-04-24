@@ -22,6 +22,7 @@
 <body>
     <div id="box"></div>
     <script>
+    // 待整理：可以放到细节里面 ...
     var oBox = document.querySelector('#box');
     /* oBox.onmousedown = function(e) {
         var disX = e.clientX - this.offsetLeft;
@@ -72,7 +73,7 @@
     }; */
 
     // 如果实在要用 transform，解决如下：
-    var moveX = 0;
+    /* var moveX = 0;
     var moveY = 0;
 
     oBox.onmousedown = function(e) {
@@ -89,7 +90,59 @@
             document.onmouseup = null;
         };
         return false;
+    }; */
+
+    /* oBox.onmousedown = function(e) {
+        // 下次移动的时候用当前的 moveX 再加上 1 次原来的 moveX 就可以了，注意是 1 此，所以不能在 mousemove 中加
+        var originClientX = e.clientX;
+        var originClientY = e.clientY;
+
+        this.moveX = this.moveX || 0;
+        this.moveY = this.moveY || 0;
+        document.onmousemove = function(e) {
+            transX = oBox.moveX + e.clientX - originClientX;
+            transY = oBox.moveY + e.clientY - originClientY;
+
+            oBox.style.transform = 'translate('+ transX +'px, '+ transY +'px)';
+        };
+        document.onmouseup = function() {
+            document.onmousemove = null;
+            document.onmouseup = null;
+            // 挂起来
+            console.log(moveX, moveY)
+            oBox.moveX = transX;
+            oBox.moveY = transY;
+        };
+        return false;
+    }; */
+
+    var startX = 0;
+    var startY = 0;
+    var transX = 0;
+    var transY = 0;
+    oBox.onmousedown = function(e) {
+        // 下次移动的时候用当前的 moveX 再加上 1 次原来的 moveX 就可以了，注意是 1 此，所以不能在 mousemove 中加
+        var originClientX = e.clientX;
+        var originClientY = e.clientY;
+
+        document.onmousemove = function(e) {
+            // 类似 sum += i
+            transX = startX + e.clientX - originClientX;
+            transY = startY + e.clientY - originClientY;
+
+            oBox.style.transform = 'translate('+ transX +'px, '+ transY +'px)';
+        };
+        document.onmouseup = function() {
+            document.onmousemove = null;
+            document.onmouseup = null;
+            
+            startX = transX;
+            startY = transY;
+        };
+        return false;
     };
+
+    // 或者获取 translate
     </script>
 </body>
 </html>
