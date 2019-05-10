@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .slider-bar {
+            position: absolute;
+            left: 50%;
+            top: 300px;
+            margin-left: 600px;
+            width: 45px;
+            height: 130px;
+            background-color: pink;
+        }
+        
+        .w {
+            width: 1200px;
+            margin: 10px auto;
+        }
+        
+        .header {
+            height: 150px;
+            background-color: purple;
+        }
+        
+        .banner {
+            height: 250px;
+            background-color: skyblue;
+        }
+        
+        .main {
+            height: 1000px;
+            background-color: yellowgreen;
+        }
+        
+        span {
+            display: none;
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider-bar">
+        <span class="goBack">返回顶部</span>
+    </div>
+    <div class="header w">头部区域</div>
+    <div class="banner w">banner区域</div>
+    <div class="main w">主体部分</div>
+    <script>
+    // fixed 是相对于窗口、position 是相对于文档
+
+    var oSliderBar = document.querySelector('.slider-bar');
+    var oGoBack = document.querySelector('.goBack');
+    var oHeader = document.querySelector('.header');
+    var oBanner = document.querySelector('.banner');
+    var oMain = document.querySelector('.main');
+
+    // 注意获取距离的操作都是在外面进行的，因为一上来就是可以确定好的数值
+    // 不要在滚动的时候获取距离，因为里面有个重新设置 top 的操作，导致 iSliderBarTop 的值有问题
+    var iSliderBarTop = oSliderBar.offsetTop;
+    var iBannerTop = oBanner.offsetTop;
+    var iShouldFixedTop = iSliderBarTop - iBannerTop;
+
+    document.onscroll = function() {
+        // 卷去距离 >= iBannerTop 的时候固定住侧边栏，并且重新设置 fixed 时相对于窗口的高度
+        if(window.pageYOffset >= iBannerTop) {
+            oSliderBar.style.position = 'fixed';
+            oSliderBar.style.top = iShouldFixedTop + 'px';
+        } else {
+            oSliderBar.style.position = 'absolute';
+            oSliderBar.style.top = '300px';
+        }
+
+        // 卷去距离 >= oMain.offsetTop 的时候显示返回顶部按钮
+        if(window.pageYOffset >= oMain.offsetTop) {
+            oGoBack.style.display = 'block';
+        } else {
+            oGoBack.style.display = 'none';
+        }
+    };
+    
+
+    // 修改之前的 obj.style.left 为 window.scroll(0, 数值)
+    function animate(obj, target, fn) {
+        clearInterval(obj.timer);
+        var speed = 0;
+        obj.timer = setInterval(function() {
+            // mark1
+            speed = (target - obj.pageYOffset) / 7;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+            // mark2
+            obj.scroll(0, obj.pageYOffset + speed);
+            // mark3
+            if(obj.pageYOffset == target) {
+                clearInterval(obj.timer);
+                fn && fn();
+            }
+        }, 15);
+    }
+    oGoBack.onclick = function() {
+        // window.scroll(0, 0);
+        animate(window, 0, function() {
+            console.log('finish');
+        });
+    };
+    </script>
+</body>
+
+</html>
