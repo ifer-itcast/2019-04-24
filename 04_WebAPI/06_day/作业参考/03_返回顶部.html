@@ -86,7 +86,7 @@
     };
     
 
-    // 修改之前的 obj.style.left 为 window.scroll(0, 数值)
+    // 主要是修改之前的 obj.style.left 为 window.scroll(0, 数值)
     function animate(obj, target, fn) {
         clearInterval(obj.timer);
         var speed = 0;
@@ -103,8 +103,11 @@
             }
         }, 15);
     }
+
+    
     oGoBack.onclick = function() {
         // window.scroll(0, 0);
+        // document.documentElement.scrollTop = 0;
         animate(window, 0, function() {
             console.log('finish');
         });
