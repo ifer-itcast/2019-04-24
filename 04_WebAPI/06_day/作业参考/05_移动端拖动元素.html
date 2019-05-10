@@ -23,6 +23,7 @@
         var disX = 0;
         var disY = 0;
         oBox.addEventListener('touchstart', function (e) {
+            // 一上来就计算 disX
             disX = e.targetTouches[0].pageX - oBox.offsetLeft;
             disY = e.targetTouches[0].pageY - oBox.offsetTop;
         });
@@ -30,7 +31,7 @@
         oBox.addEventListener('touchmove', function(e) {
             oBox.style.left = e.targetTouches[0].pageX - disX + 'px';
             oBox.style.top = e.targetTouches[0].pageY - disY + 'px';
-            // 阻止默认事件
+            // 阻止屏幕默认的滚动行为
             e.preventDefault();
         });
 

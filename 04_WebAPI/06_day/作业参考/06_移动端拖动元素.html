@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background-color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        var oBox = document.querySelector('#box');
+        // 按下时的手指的位置
+        var startX = 0;
+        var startY = 0;
+        // 按下时的盒子的位置
+        var initX = 0;
+        var ininY = 0;
+        oBox.addEventListener('touchstart', function (e) {
+            // 一上来就计算 disX
+            startX = e.targetTouches[0].pageX;
+            startY = e.targetTouches[0].pageY;
+            initX = oBox.offsetLeft;
+            initY = oBox.offsetTop;
+        });
+
+        oBox.addEventListener('touchmove', function (e) {
+            // 其实这种方法和 05_移动端拖动元素.html 中的方法在数学上是一模一样的，把上个文件中这里的 disX 代入成 （e.targetTouches[0].pageX - oBox.offsetLeft） 就是现在的代码，当然 e.targetTouches[0].pageX 肯定是要在 touchstart 时获取的定值。两种不同的写法只是理解方式上的不同，目的是给大家多一点思考
+
+            // 用盒子原来的位置加上 + (移动时手指位置 - 按下时手指位置)
+            oBox.style.left = initX + (e.targetTouches[0].pageX - startX) + 'px';
+            oBox.style.top = initY + (e.targetTouches[0].pageY - startY) + 'px';
+            // 阻止屏幕默认的滚动行为
+            e.preventDefault();
+        });
+    </script>
+</body>
+
+</html>
