@@ -1,137 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        li {
-            list-style: none;
-        }
-
-        .wrap {
-            width: 300px;
-            height: 100px;
-            margin: 60px auto 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .con {
-            position: absolute;
-            left: -100%;
-            width: 500%;
-            height: 100%;
-        }
-
-        .con li {
-            width: 20%;
-            height: 100px;
-            line-height: 100px;
-            float: left;
-            color: #fff;
-            font-size: 60px;
-            text-align: center;
-        }
-
-        .con li.first {
-            background-color: red;
-        }
-
-        .con li.second {
-            background-color: green;
-        }
-
-        .con li.thrid {
-            background-color: blue;
-        }
-
-        .con li.four {
-            background-color: pink;
-        }
-
-        .dot {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .dot li {
-            display: inline-block;
-            width: 4px;
-            height: 4px;
-            border-radius: 2px;
-            cursor: pointer;
-            background-color: rgba(255, 255, 255, .3);
-            margin: 0 5px;
-            transition: all .3s;
-        }
-
-        .dot .active {
-            width: 15px;
-            background-color: rgba(255, 255, 255, 1);
-        }
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    #box {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        left: 200px;
+        background-color: pink;
+    }
     </style>
 </head>
-
 <body>
-    <div class="wrap">
-        <ul class="con">
-            <li class="first">1</li>
-            <li class="second">2</li>
-            <li class="thrid">3</li>
-        </ul>
-        <ol class="dot">
-            <li class="active"></li>
-            <li></li>
-            <li></li>
-        </ol>
-    </div>
-    <script src="./animate.js"></script>
+    <div id="box"></div>
     <script>
-    // 获取元素
-    var oWrap = document.querySelector('.wrap');
-    var oUl = oWrap.querySelector('.con');
-    
-    var oOl = oWrap.querySelector('.dot');
-    var aOlLi = oOl.querySelector('li');
+    var oBox = document.querySelector('#box');
+    /* oBox.onmousedown = function(e) {
+        var disX = e.clientX - this.offsetLeft;
+        var disY = e.clientY - this.offsetTop;
+        document.onmousemove = function(e) {
+            oBox.style.left = e.clientX - disX + 'px';
+            oBox.style.top = e.clientY - disY + 'px';
+        };
+        document.onmouseup = function() {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        };
+        return false;
+    }; */
 
-    // 变成 3、1、2、3、1 的形式
-    // 注意一定要是克隆后的元素，不要是 oUl.children[0]，因为 appendChild 是先删后添
-    var firstLi = oUl.children[0].cloneNode(true);
-    var lastLi = oUl.children[oUl.children.length - 1].cloneNode(true);
-    oUl.appendChild(firstLi);
-    oUl.insertBefore(lastLi, oUl.children[0]);
-    var aUlLi = oUl.querySelectorAll('li');
-    
-    // 一个 li 的宽度
-    var iOneWidth = aUlLi[0].offsetWidth;
+    /* oBox.onmousedown = function(e) {
+        var originClientX = e.clientX;
+        var originClientY = e.clientY;
+        var originLeft = this.offsetLeft;
+        var origintTop = this.offsetTop;
+        document.onmousemove = function(e) {
+            oBox.style.left = originLeft + (e.clientX - originClientX) + 'px';
+            oBox.style.top = origintTop + (e.clientY - originClientY) + 'px';
+        };
+        document.onmouseup = function() {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        };
+        return false;
+    }; */
 
-    // 首先让 oUl 能拖能动
-    var disX = 0;
+    /* oBox.onmousedown = function(e) {
+        var originClientX = e.clientX;
+        var originClientY = e.clientY;
+        var originLeft = this.offsetLeft;
+        var origintTop = this.offsetTop;
+        document.onmousemove = function(e) {
+            var l = originLeft + (e.clientX - originClientX);
+            var t = origintTop + (e.clientY - originClientY);
+            // l 本来指的应该是 oBox 的 left 值，如果直接把 l 赋值给了 translate，那就相当于在定位的基础上又直接 translate 了 l 的值，那肯定是不行的！
+            oBox.style.transform = 'translate('+ l +'px, '+ t +'px)';
+        };
+        document.onmouseup = function() {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        };
+        return false;
+    }; */
+
+    // 如果实在要用 transform，解决如下：
     var moveX = 0;
-    oWrap.addEventListener('touchstart', function(e) {
-        disX = e.targetTouches[0].pageX - oUl.offsetLeft;
-    });
-    oWrap.addEventListener('touchmove', function(e) {
-        // about left or transform? origin ? Github
-        moveX = e.targetTouches[0].pageX - disX;
-        // oUl.style.left = moveX + 'px';
-        // console.log(moveX);
-        oUl.style.transform = 'translateX('+ moveX +'px)';
-    });
-    oWrap.addEventListener('touchend', function() {
+    var moveY = 0;
 
-    });
+    oBox.onmousedown = function(e) {
+        // 下次移动的时候用当前的 moveX 再加上 1 次原来的 moveX 就可以了，注意是 1 此，所以不能在 mousemove 中加
+        var originClientX = e.clientX - moveX;
+        var originClientY = e.clientY - moveY;
+        document.onmousemove = function(e) {
+            moveX = e.clientX - originClientX;
+            moveY = e.clientY - originClientY;
+            oBox.style.transform = 'translate('+ moveX +'px, '+ moveY +'px)';
+        };
+        document.onmouseup = function() {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        };
+        return false;
+    };
     </script>
 </body>
-
 </html>
