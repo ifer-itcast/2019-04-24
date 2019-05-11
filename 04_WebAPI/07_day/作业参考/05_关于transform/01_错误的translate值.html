@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            left: 200px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        var oBox = document.querySelector('#box');
+        oBox.onmousedown = function (e) {
+            var originClientX = e.clientX;
+            var originClientY = e.clientY;
+            var originLeft = this.offsetLeft;
+            var origintTop = this.offsetTop;
+            document.onmousemove = function (e) {
+                var l = originLeft + (e.clientX - originClientX);
+                var t = origintTop + (e.clientY - originClientY);
+                // l 本来指的应该是 oBox 的 left 值，这里直接把 l 使用在了 translate 上，那就相当于在定位的基础上又直接 translate 了 l 的值，那肯定是不行的
+                oBox.style.transform = 'translate(' + l + 'px, ' + t + 'px)';
+            };
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            };
+            return false;
+        };
+    </script>
+</body>
+
+</html>

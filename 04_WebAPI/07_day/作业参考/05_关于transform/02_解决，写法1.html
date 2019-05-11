@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            left: 200px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        var oBox = document.querySelector('#box');
+        var moveX = 0;
+        var moveY = 0;
+        oBox.onmousedown = function (e) {
+            // 下次移动的时候用当前的 moveX 再加上 1 次原来的 moveX 就可以了，注意是 1 此，所以不能在 mousemove 中加
+            var originClientX = e.clientX - moveX;
+            var originClientY = e.clientY - moveY;
+            document.onmousemove = function (e) {
+                moveX = e.clientX - originClientX;
+                moveY = e.clientY - originClientY;
+                oBox.style.transform = 'translate(' + moveX + 'px, ' + moveY + 'px)';
+            };
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            };
+            return false;
+        };
+    </script>
+</body>
+
+</html>

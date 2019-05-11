@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            left: 200px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        var oBox = document.querySelector('#box');
+
+        // 移动开始时，上次的 translate 值
+        var startX = 0;
+        var startY = 0;
+
+        // 需要 translate 的值
+        var transX = 0;
+        var transY = 0;
+        oBox.onmousedown = function (e) {
+            // 下次移动的时候用当前的 moveX 再加上 1 次原来的 moveX 就可以了，注意是 1 此，所以不能在 mousemove 中加
+            var originClientX = e.clientX;
+            var originClientY = e.clientY;
+
+            document.onmousemove = function (e) {
+                var moveX = e.clientX - originClientX;
+                var moveY = e.clientY - originClientY
+
+                // 上次初始的值 + 当前移动的值
+                transX = startX + moveX;
+                transY = startY + moveY;
+
+                oBox.style.transform = 'translate(' + transX + 'px, ' + transY + 'px)';
+            };
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onmouseup = null;
+
+                startX = transX;
+                startY = transY;
+            };
+            return false;
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            left: 200px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        var oBox = document.querySelector('#box');
+
+        oBox.onmousedown = function (e) {
+            var originClientX = e.clientX;
+            var originClientY = e.clientY;
+            this.moveX = this.moveX || 0;
+            this.moveY = this.moveY || 0;
+            document.onmousemove = function (e) {
+                oBox.transX = oBox.moveX + e.clientX - originClientX;
+                oBox.transY = oBox.moveY + e.clientY - originClientY;
+
+                oBox.style.transform = 'translate(' + oBox.transX + 'px, ' + oBox.transY + 'px)';
+            };
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onmouseup = null;
+                oBox.moveX = oBox.transX;
+                oBox.moveY = oBox.transY;
+            };
+            return false;
+        };
+    </script>
+</body>
+
+</html>
