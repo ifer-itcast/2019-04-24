@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="input">
+    <input type="checkbox" id="mark">
+    <label for="mark">记住用户名</label>
+    <script>
+    var oInput = document.querySelector('#input');
+    var oMark = document.querySelector('#mark');
+
+    oMark.addEventListener('change', function(e) {
+        if(this.checked) {
+            localStorage.setItem('username', oInput.value);
+        } else {
+            localStorage.removeItem('username');
+        }
+    });
+
+    var sCon = localStorage.getItem('username');
+    if(sCon) {
+        // storage 有内容就选中
+        oInput.value = sCon;
+        oMark.checked = true;
+    } else {
+        // storage 没内容说明取消了 input（取消则会删除 storage）
+    }
+    </script>
+</body>
+</html>
