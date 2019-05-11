@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #top{
+        height: 200px;
+        background-color: red;
+    }
+    #banner{
+        height: 300px;
+        background-color: green;
+    }
+    #con{
+        height: 400px;
+        background-color: blue;
+    }
+    #bottom{
+        height: 500px;
+        background-color: pink;
+    }
+    #back{
+        position: fixed;
+        right: 30px;
+        bottom: 50px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #000;
+        display: none;
+    }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div id="banner"></div>
+    <div id="con"></div>
+    <div id="bottom"></div>
+    <div id="back"></div>
+    <script>
+    var oTop = document.querySelector('#top');
+    var oBanner = document.querySelector('#banner');
+    var oCon = document.querySelector('#con');
+    var oBottom = document.querySelector('#bottom');
+    var oBack = document.querySelector('#back');
+
+    var iBannerTop = oBanner.offsetTop;
+    window.addEventListener('scroll', function() {
+        if(window.pageYOffset > iBannerTop) {
+            oBack.style.display = 'block';
+        } else {
+            oBack.style.display = 'none';
+        }
+    });
+
+    oBack.addEventListener('click', function() {
+        window.scroll(0, 0);
+    });
+    </script>
+</body>
+</html>
