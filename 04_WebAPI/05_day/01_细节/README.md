@@ -63,3 +63,16 @@ function getAbsPos(ele) {
 假如一个干干净净的页面只有一个需要移动的 div，从效果上来说使用两个都没有问题（即便如此也不推荐 relative），因为这时候即便使用相对定位那最初的起点也是窗口的 0、0 坐标
 
 假如当需要移动的 div 前面存在一个占位的元素时，那么相对定位的起点就不再是 0、0 了，而我们计算 disX 时用到的 pageX 又是相对于 0、0 点的，这时候就出现问题了，还需要做一些特殊处理（在移动时把所有占位元素的空间给加上）
+
+## 关于放大镜的遮罩摆放位置的问题
+
+```html
+<div id="sm-box">我是小盒子</div>
+<div id="sm-mask">我是小盒子里面的遮罩</div>
+<div id="lg-box">
+    <div id="lg-img"></div>
+</div>
+```
+
+有些同学是上面的布局方式，首先我们知道 sm-mask 是相对于 sm-box 去改变位置的，那直接放到外面还怎么相对，其次当我移动到 sm-box 上显示 sm-mask，如果是这种布局方式，当我再次移动到 sm-mask 上时那其实也是离开了 sm-box （即便视觉上 sm-mask 在 sm-box 里面），那离开的时候 sm-mask 就会消失，消失了那鼠标就在 sm-box 上了就又会触发 sm-box 的 mouseover，mouseover 时 sm-mask 又会出来，如此循环往复...
+
