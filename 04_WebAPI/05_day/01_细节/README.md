@@ -33,3 +33,25 @@ document.querySelector('div').onselectstart = function() {
 };
 </script>
 ```
+
+## 取元素到 Body 的距离
+
+我们知道 offsetTop 只是相对于父级的距离，怎么拿到元素直接相对于 body 的距离呢（有些需求会用到）？
+
+```javascript
+// 通过判断是否存在 offsetLeft，求和！
+function getAbsPos(ele) {
+    var obj = {
+        left: 0,
+        top: 0
+    };
+    while (ele) {
+        obj.left += ele.offsetLeft;
+        obj.top += ele.offsetTop;
+        ele = ele.offsetParent;
+    }
+    return obj;
+}
+```
+
+> 补充：通过 oDiv.getBoundingClientRect() 可以拿到一个元素相对于视口的信息（注意 clientX 是光标相对于视口）

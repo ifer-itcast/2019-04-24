@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrap {
+            margin: 100px auto 0;
+            width: 300px;
+            height: 300px;
+            background-color: yellow;
+            position: relative;
+        }
+
+        .con {
+            position: absolute;
+            top: 70px;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+        .inner {
+            position: absolute;
+            top: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body style="height: 2000px;">
+    <div class="wrap">
+        <div class="con">
+            <div class="inner"></div>
+        </div>
+    </div>
+    <script>
+        var oInner = document.querySelector('.inner');
+        // 这样得到的是到带有定位的父级的距离
+        console.log(oInner.offsetTop);
+
+        // 相对于 body 的距离
+        function getAbsPos(ele) {
+            var obj = {
+                left: 0,
+                top: 0
+            };
+            while (ele) {
+                obj.left += ele.offsetLeft;
+                obj.top += ele.offsetTop;
+                ele = ele.offsetParent;
+            }
+            return obj;
+        }
+        console.log(getAbsPos(oInner).top);
+    </script>
+</body>
+
+</html>
