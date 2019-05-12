@@ -21,7 +21,7 @@ var left = e.pageX - disX - 100; // #2
 // 把 #1 的 disX 代入 #2，发现对 translate 的操作是可以抵消的，这也正是我们用 translate 进行初始化位置时，不用特意修改代码但效果依然符合预期的原因！
 ```
 
-## 关于拖拽
+## 关于拖拽按下时的默认事件
 
 在 mousedown 时最好使用 e.preventDefault() 阻止下和 oDiv 相关的默认事件，例如下面代码我在按下 div 的时候却会触发 onselectstart 这个默认事件：
 
