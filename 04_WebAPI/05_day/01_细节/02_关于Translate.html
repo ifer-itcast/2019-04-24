@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    div{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        /* 建议使用绝对定位！ */
+        position: absolute;
+        transform: translate(100px, 100px);
+    }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+    var oDiv = document.querySelector('#box');
+    oDiv.addEventListener('mousedown', function(e) {
+
+        // 按下那一刻鼠标到盒子的距离，注意需要减去 translate 的值，因为 offsetLeft 并不包含 translate
+        var disX = e.pageX - this.offsetLeft - 100;
+        var disY = e.pageY - this.offsetTop - 100;
+
+        function mousemove(e) {
+            // 移动的时候也要特意减去 translate 的值，不至于出现偏离的现象
+            var left = e.pageX - disX - 100;
+            var top = e.pageY - disY - 100;
+            oDiv.style.top = top + 'px';
+            oDiv.style.left = left + 'px';
+        }
+        function mouseup() {
+            document.removeEventListener('mousemove', mousemove);
+            document.removeEventListener('mouseup', mouseup);
+        }
+        document.addEventListener('mousemove', mousemove);
+        document.addEventListener('mouseup', mouseup);
+        // 阻止默认事件，例如默认的选中文字事件
+        e.preventDefault();
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    div{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        /* 建议使用绝对定位！ */
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        margin-top: 100px;
+        margin-left: 100px;
+    }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+    // 不要给想要运动的物体加 margin，如果想要改变它的位置，可以使用 top 或 left
+    // 如果在应用了定位的同时竟然又加了 margin（严重不推荐，因为这里 top、left 完全可以搞定 margin 的功能），那需要在 mousemove 的时候减去这个值，当然你在按下的时候 disX = e.pageX - this.offsetLeft + marginLeft 也是 ok
+    var oDiv = document.querySelector('#box');
+    oDiv.addEventListener('mousedown', function(e) {
+        // 获取元素的 margin 值
+        var oDivComputedSty = getComputedStyle(oDiv);
+        var marginLeft = parseInt(oDivComputedSty.marginLeft);
+        var marginTop = parseInt(oDivComputedSty.marginTop);
+
+        // 按下那一刻鼠标到盒子的举例
+        var disX = e.pageX - this.offsetLeft;
+        var disY = e.pageY - this.offsetTop;
+        
+        function mousemove(e) {
+            var left = e.pageX - disX;
+            var top = e.pageY - disY;
+            // 不加 margin 的时候好好的，加了定位相当于硬生生的在定位的基础上又多了个 margin 的距离，所以要减去，不至于出现偏离的现象
+            oDiv.style.top = top - marginTop + 'px';
+            oDiv.style.left = left - marginLeft + 'px';
+        }
+        function mouseup() {
+            document.removeEventListener('mousemove', mousemove);
+            document.removeEventListener('mouseup', mouseup);
+        }
+        document.addEventListener('mousemove', mousemove);
+        document.addEventListener('mouseup', mouseup);
+        // 阻止默认事件，例如默认的选中文字事件
+        e.preventDefault();
+    });
+    </script>
+</body>
+</html>
