@@ -62,8 +62,11 @@
         .btn-wrap span:hover {
             background-color: rgba(0, 0, 0, .7);
         }
-        .tip-wrap{
+
+        .tip-wrap {
             margin-top: 100px;
+            text-align: center;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -151,6 +154,7 @@
                 this.height = options.height || 20;
                 this.direction = options.direction || 'right';
 
+                // 深拷贝还会被影响的问题
                 this.body = [
                     {
                         x: 3, y: 1, color: 'red', // 蛇头
@@ -227,7 +231,16 @@
                     oGame.oFood.render(oGame.oMap);
 
                     // 积分
-                    oScore.innerHTML = ++oGame.score;
+                    oGame.score++;
+                    oScore.innerHTML = oGame.score;
+                }
+
+                // 撞到自己身体就 over ...
+                // 从 1 开始才是身体
+                for (var i = 1; i < oGame.oSnake.body.length; i++) {
+                    if (oGame.oSnake.body[i].x == oGame.oSnake.body[0].x && oGame.oSnake.body[i].y == oGame.oSnake.body[0].y) {
+                        oGame.over();
+                    }
                 }
             };
 
@@ -240,16 +253,24 @@
                 this.oMap = oMap;
                 this.oFood = new Food();
                 this.oSnake = new Snake();
+
+                bindEvent(this);
+
                 this.init();
             }
             Game.prototype.init = function () {
+                // 数据恢复默认
+                this.oSnake.body = [
+                    {x: 3, y: 1, color: 'red'}, // 蛇头
+                    {x: 2, y: 1, color: 'blue'},
+                    {x: 1, y: 1, color: 'blue'}
+                ];
+
                 // 渲染食物
                 this.oFood.render(this.oMap);
                 // 渲染蛇
                 this.oSnake.render(this.oMap);
 
-                bindEvent(this);
-                
                 // 默认方向是往右跑，此时只允许按上下
                 this.allowDir = {
                     up: true, // 不要起名 top，和 window 下的冲突
@@ -257,8 +278,9 @@
                     bottom: true,
                     left: false
                 };
-                // 积分
+                // 默认积分
                 this.score = 0;
+                oScore.innerHTML = this.score;
             };
             Game.prototype.start = function () {
                 /* // 移动只是改变的数据
@@ -267,10 +289,15 @@
                 this.oSnake.render(this.oMap); */
 
                 continueMove(this);
-
             };
             Game.prototype.pause = function () {
                 clearInterval(this.timer);
+            };
+            Game.prototype.over = function () {
+                clearInterval(this.timer);
+                alert('当前得分' + this.score);
+
+                this.init();
             };
             // 持续运动蛇
             function continueMove(oGame) {
@@ -290,12 +317,10 @@
 
                     // 看蛇头有没有撞边就 ok 啦
                     if (x < 0 || x >= maxX) {
-                        alert('Game Over ~~');
-                        clearInterval(oGame.timer);
+                        oGame.over();
                     }
                     if (y < 0 || y >= maxY) {
-                        alert('Game Over ~~');
-                        clearInterval(oGame.timer);
+                        oGame.over();
                     }
                 }, 150);
             }
@@ -305,7 +330,7 @@
                 document.addEventListener('keydown', function (e) {
                     switch (e.keyCode) {
                         case 37:
-                            if(oGame.allowDir.left) {
+                            if (oGame.allowDir.left) {
                                 oGame.oSnake.direction = 'left';
                                 oGame.allowDir.up = true;
                                 oGame.allowDir.right = false;
@@ -314,7 +339,7 @@
                             }
                             break;
                         case 38:
-                            if(oGame.allowDir.up) {
+                            if (oGame.allowDir.up) {
                                 oGame.oSnake.direction = 'top';
                                 oGame.allowDir.up = false;
                                 oGame.allowDir.right = true;
@@ -323,7 +348,7 @@
                             }
                             break;
                         case 39:
-                            if(oGame.allowDir.right) {
+                            if (oGame.allowDir.right) {
                                 oGame.oSnake.direction = 'right';
                                 oGame.allowDir.up = true;
                                 oGame.allowDir.right = false;
@@ -332,7 +357,7 @@
                             }
                             break;
                         case 40:
-                            if(oGame.allowDir.bottom) {
+                            if (oGame.allowDir.bottom) {
                                 oGame.oSnake.direction = 'bottom';
                                 oGame.allowDir.up = false;
                                 oGame.allowDir.right = true;
@@ -395,7 +420,7 @@
 
             window.AddLine = AddLine;
         })(window);
-        
+
         // main.js
         var oMap = document.querySelector('#map');
         var oScore = document.querySelector('.score');
