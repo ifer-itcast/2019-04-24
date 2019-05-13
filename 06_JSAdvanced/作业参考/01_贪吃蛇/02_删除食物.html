@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            margin: 50px auto;
+            width: 500px;
+            height: 500px;
+            background-color: pink;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        var oMap = document.querySelector('#map');
+        var aFood = [];
+
+        var Tools = {
+            random: function (min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+        };
+
+        function Food(options) {
+            options = options || {};
+            this.width = options.width || 20;
+            this.height = options.height || 20;
+            this.color = options.color || 'red';
+        }
+
+        // oMap 当然也可以作为 Food 的参数传递
+        // render = init + random 的操作
+        Food.prototype.render = function(oMap) {
+            // 一上来就先删除一波上次的食物
+            remove(aFood);
+
+            var oDiv = document.createElement('div');
+            oDiv.style.position = 'absolute';
+            oDiv.style.width = this.width + 'px';
+            oDiv.style.height = this.height + 'px';
+            oDiv.style.backgroundColor = this.color;
+
+            // 这里的位置之所以挂载在 this 上面，因为后面要用到
+            this.x = Tools.random(0, oMap.offsetWidth / this.width - 1) * this.width;
+            this.y = Tools.random(0, oMap.offsetHeight / this.height - 1) * this.height;
+
+            oDiv.style.top = this.y + 'px';
+            oDiv.style.left = this.x + 'px';
+
+            oMap.appendChild(oDiv);
+            // 存储下添加的食物
+            aFood.push(oDiv);
+        };
+
+        // 删除这个方法并不希望外部访问
+        function remove(arr) {
+            for(var i = arr.length - 1; i >= 0; i --) {
+                // 删除页面中真正的那个元素
+                arr[i].parentNode.removeChild(arr[i]);
+                // 删除数组中的那个元素
+                arr.splice(i, 1);
+            }
+        }
+
+        new Food().render(oMap);
+
+    </script>
+</body>
+
+</html>
