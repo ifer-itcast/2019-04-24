@@ -246,6 +246,14 @@
                 this.oSnake.render(this.oMap);
 
                 bindEvent(this);
+                
+                // 默认方向是往右跑，此时只允许按上下
+                this.allowDir = {
+                    up: true, // 不要起名 top，和 window 下的冲突
+                    right: false,
+                    bottom: true,
+                    left: false
+                };
             };
             Game.prototype.start = function () {
                 /* // 移动只是改变的数据
@@ -292,16 +300,40 @@
                 document.addEventListener('keydown', function (e) {
                     switch (e.keyCode) {
                         case 37:
-                            oGame.oSnake.direction = 'left';
+                            if(oGame.allowDir.left) {
+                                oGame.oSnake.direction = 'left';
+                                oGame.allowDir.up = true;
+                                oGame.allowDir.right = false;
+                                oGame.allowDir.bottom = true;
+                                oGame.allowDir.left = false;
+                            }
                             break;
                         case 38:
-                            oGame.oSnake.direction = 'top';
+                            if(oGame.allowDir.up) {
+                                oGame.oSnake.direction = 'top';
+                                oGame.allowDir.up = false;
+                                oGame.allowDir.right = true;
+                                oGame.allowDir.bottom = false;
+                                oGame.allowDir.left = true;
+                            }
                             break;
                         case 39:
-                            oGame.oSnake.direction = 'right';
+                            if(oGame.allowDir.right) {
+                                oGame.oSnake.direction = 'right';
+                                oGame.allowDir.up = true;
+                                oGame.allowDir.right = false;
+                                oGame.allowDir.bottom = true;
+                                oGame.allowDir.left = false;
+                            }
                             break;
                         case 40:
-                            oGame.oSnake.direction = 'bottom';
+                            if(oGame.allowDir.bottom) {
+                                oGame.oSnake.direction = 'bottom';
+                                oGame.allowDir.up = false;
+                                oGame.allowDir.right = true;
+                                oGame.allowDir.bottom = false;
+                                oGame.allowDir.left = true;
+                            }
                             break;
                         case 32:
                             oBtn.click();
