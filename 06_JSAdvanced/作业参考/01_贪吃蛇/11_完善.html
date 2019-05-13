@@ -237,6 +237,7 @@
 
                 // 撞到自己身体就 over ...
                 // 从 1 开始才是身体
+                // 这里性能堪忧，待优化
                 for (var i = 1; i < oGame.oSnake.body.length; i++) {
                     if (oGame.oSnake.body[i].x == oGame.oSnake.body[0].x && oGame.oSnake.body[i].y == oGame.oSnake.body[0].y) {
                         oGame.over();
