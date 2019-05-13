@@ -225,6 +225,9 @@
                     });
                     // 重新渲染食物
                     oGame.oFood.render(oGame.oMap);
+
+                    // 积分
+                    oScore.innerHTML = ++oGame.score;
                 }
             };
 
@@ -254,6 +257,8 @@
                     bottom: true,
                     left: false
                 };
+                // 积分
+                this.score = 0;
             };
             Game.prototype.start = function () {
                 /* // 移动只是改变的数据
