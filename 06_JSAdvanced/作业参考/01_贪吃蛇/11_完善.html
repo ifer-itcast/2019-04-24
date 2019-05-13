@@ -62,6 +62,9 @@
         .btn-wrap span:hover {
             background-color: rgba(0, 0, 0, .7);
         }
+        .tip-wrap{
+            margin-top: 100px;
+        }
     </style>
 </head>
 
@@ -72,6 +75,9 @@
             <div class="score-wrap">得分：<span class="score">0</span></div>
             <div class="btn-wrap">
                 <span class="btn">开始</span>
+            </div>
+            <div class="tip-wrap">
+                <span>游戏提示：快捷键空格</span>
             </div>
         </div>
     </div>
@@ -358,11 +364,20 @@
         var oScore = document.querySelector('.score');
         var oBtn = document.querySelector('.btn');
 
-        // 参考线
         var line = new AddLine(oMap);
         var game = new Game(oMap);
 
-        
+        var bBar = true;
+        oBtn.onclick = function () {
+            if (bBar) {
+                this.innerHTML = '暂停';
+                game.start();
+            } else {
+                this.innerHTML = '开始';
+                game.pause();
+            }
+            bBar = !bBar;
+        };
     </script>
 </body>
 
