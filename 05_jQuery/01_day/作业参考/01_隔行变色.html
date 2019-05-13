@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>001</li>
+        <li>002</li>
+        <li>003</li>
+        <li>004</li>
+        <li>005</li>
+    </ul>
+    <script src="./jquery-1.11.1.js"></script>
+    <script>
+    var $aLi = $('ul li');
+    // 隔行变色
+    $aLi.each(function(i, item) {
+        if(i % 2 === 0) {
+            $(item).css("backgroundColor", "pink");
+        } else {
+            $(item).css("backgroundColor", "green");
+        }
+    });
+
+    // 滑动变色
+    var oldColor = "";
+    $aLi.mouseover(function() {
+        oldColor = $(this).css("backgroundColor");
+        $(this).css("backgroundColor", "red");
+    });
+    $aLi.mouseout(function() {
+        $(this).css("backgroundColor", oldColor);
+    });
+    </script>
+</body>
+</html>

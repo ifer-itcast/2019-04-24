@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    li:nth-child(odd){
+        background-color: red;
+    }
+    li:nth-child(even){
+        background-color: green;
+    }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>001</li>
+        <li>002</li>
+        <li>003</li>
+        <li>004</li>
+        <li>005</li>
+    </ul>
+    <script src="./jquery-1.11.1.js"></script>
+    <script>
+        var $aLi = $('ul li');
+        $("li").mouseenter(function() {
+            $("li").css("opacity", .4);
+            $(this).css("opacity", 1);
+        });
+
+        $("ul").mouseleave(function() {
+            // li 的 mouseout 并不需要冒泡到这里，只有真正离开 ul 的时候统一设置一下就 ok 了
+            $("li").css("opacity", 1);
+        });
+    </script>
+</body>
+
+</html>
