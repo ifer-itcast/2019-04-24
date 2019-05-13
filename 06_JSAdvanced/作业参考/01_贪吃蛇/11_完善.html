@@ -254,9 +254,7 @@
                 this.oMap = oMap;
                 this.oFood = new Food();
                 this.oSnake = new Snake();
-
                 bindEvent(this);
-
                 this.init();
             }
             Game.prototype.init = function () {
@@ -279,9 +277,13 @@
                     bottom: true,
                     left: false
                 };
+                // !!
+                this.oSnake.direction = 'right';
                 // 默认积分
                 this.score = 0;
                 oScore.innerHTML = this.score;
+                oBtn.innerHTML = '开始';
+                bBar = true;
             };
             Game.prototype.start = function () {
                 /* // 移动只是改变的数据
@@ -302,6 +304,7 @@
             };
             // 持续运动蛇
             function continueMove(oGame) {
+                console.log(oGame.allowDir);
                 oGame.timer = setInterval(function () {
                     // 把食物信息传过去为了判断在运动的时候蛇头是否和食物重合
                     // 如果重合了需要重新渲染食物，需要用到 oMap 对象
@@ -432,6 +435,7 @@
 
         var bBar = true;
         oBtn.onclick = function () {
+            console.log(bBar);
             if (bBar) {
                 this.innerHTML = '暂停';
                 game.start();
