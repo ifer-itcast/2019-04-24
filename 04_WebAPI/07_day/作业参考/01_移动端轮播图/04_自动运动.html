@@ -173,6 +173,14 @@
         oUl.addEventListener('transitionend', function () {
             // 3、1、2、3、1
             // 在本身定位的基础上又 transform 了 3 个宽度
+
+            // 注意这里一定是要 >=，这是浏览器定时器自身的问题
+            console.log(2222222); // #2
+            // 当你切换页面的时候，浏览器出于性能的考虑 setInterval 不按照设定的时间进行了，会进行的很慢很慢
+            // 当你切过来的一瞬间，还没等 transitionend 触发（transition触发需要时间）,定时器会出现快速执行多次的情况
+            // 等 transitionend 触发时，这时候 iMoveNum 已经加了好多次，可能是一个很大的值了
+            // 之前没问题是因为我们并没有直接在定时器里修改控制运动的变量而已
+            // 解决：时间版运动，例如 jQuery 中的 animate 方法
             if (iMoveNum >= oUl.children.length - 2) {
                 iMoveNum = 0;
                 console.log('最后一张 1 运动完了，我就瞬间在跳到 1');
@@ -193,12 +201,16 @@
         });
 
         timer = setInterval(function () {
+            console.log(111111); // #1
             iMoveNum++;
             // iMoveNum 的界限在 transitionend 中已经做了处理
             var transX = -iMoveNum * iOneWidth;
             oUl.style.transition = '.3s';
             oUl.style.transform = 'translateX(' + transX + 'px)';
-        }, 1000);
+        }, 2000);
+
+
+       
     </script>
 </body>
 

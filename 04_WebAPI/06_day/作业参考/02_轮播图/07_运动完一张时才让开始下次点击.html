@@ -230,20 +230,27 @@
         // 点击中间按钮
         var aOlLi = oOl.children;
         var iPrev = 0;
+
         for (var i = 0; i < aOlLi.length; i++) {
             aOlLi[i].index = i;
             aOlLi[i].onclick = function () {
-                // .......点击高亮.........
-                iDotNum = this.index;
-                activeDot();
-                // .......点击运动...........
-                animate(oUl, -this.index * iOneLiWidth);
+                // 给小按钮的点击也加一个开关
+                if (bBar) {
+                    bBar = false;
+                    // .......点击高亮.........
+                    iDotNum = this.index;
+                    activeDot();
+                    // .......点击运动...........
+                    animate(oUl, -this.index * iOneLiWidth, function() {
+                        bBar = true;
+                    });
 
-                // .......细节处理...........
-                // 假如一上来我先点击的是第 4 个小按钮，这时候对应的图片也就跑到第 4 张，必然没有任何问题
-                // 但此时我再点击右侧的箭头，会发现跑到了第 2 张，由 4 => 2，这并不是我们想要的，我们需要的是 4 => 1
-                // 而点击右侧箭头时的运动又是通过 iNum 这个变量控制的，所以我们只需要每次点击小按钮的时候让 iNum 也保持同步即可，代码如下：
-                iNum = this.index;
+                    // .......细节处理...........
+                    // 假如一上来我先点击的是第 4 个小按钮，这时候对应的图片也就跑到第 4 张，必然没有任何问题
+                    // 但此时我再点击右侧的箭头，会发现跑到了第 2 张，由 4 => 2，这并不是我们想要的，我们需要的是 4 => 1
+                    // 而点击右侧箭头时的运动又是通过 iNum 这个变量控制的，所以我们只需要每次点击小按钮的时候让 iNum 也保持同步即可，代码如下：
+                    iNum = this.index;
+                }
             };
         }
 
