@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>ToDoList—最简单的待办事项列表</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <header>
+        <section>
+            <label for="title">ToDoList</label>
+            <input type="text" id="title" name="title" placeholder="添加ToDo" required="required" autocomplete="off" />
+        </section>
+    </header>
+    <section>
+        <h2>正在进行 <span id="todocount"></span></h2>
+        <ol id="todolist" class="demo-box">
+            <!-- <li><input type='checkbox' > <p>xxx</p> <a href='javascript:;' id="xxx" ></a></li> -->
+        </ol>
+        <h2>已经完成 <span id="donecount"></span></h2>
+        <ul id="donelist">
+            <!-- <li><input type='checkbox' checked='checked' > <p>yyy</p> <a href='javascript:;' id="yyy" ></a></li> -->
+        </ul>
+    </section>
+    <footer>
+        Copyright &copy; 2014 todolist.cn
+    </footer>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        // 正确思路：拿到输入数据 => 存储到本地 => 从本地获取数据 => 渲染
+        // 错误思路：拿到输入数据 => 渲染 => 存储到本地（一旦存储失败那本地数据和视图就不同步了） => ...
+
+        // 一上来先渲染一波
+        renderPage();
+        // 添加
+        $("#title").keyup(function (e) {
+            // 敲回车
+            if (e.keyCode === 13) {
+                if ($(this).val() === "") {
+                    alert("请输入内容");
+                } else {
+                    // step1: 先拿到本地的
+                    var localData = getData();
+
+                    // step2: 拼接当前的
+                    localData.push({ title: $(this).val(), done: false });
+
+                    // step3: 先存储数据再渲染页面！
+                    setData(localData);
+                    renderPage();
+
+                    $(this).val("");
+                }
+            }
+        });
+
+        // 删除
+        $("ol, ul").on("click", "a", function () {
+            var localData = getData();
+            // 找到对应的索引干掉
+            var index = $(this).attr("id");
+            localData.splice(index, 1);
+            // 先存储数据再渲染页面
+            setData(localData);
+            renderPage();
+        });
+
+        // todo 和 done 状态切换
+        $("ol, ul").on("click", "input", function () {
+            var localData = getData();
+            var index = $(this).siblings("a").attr("id");
+            localData[index].done = $(this).prop("checked");
+            // 先存储数据再渲染页面
+            setData(localData);
+            renderPage();
+        });
+
+        // 获取本地数据
+        function getData() {
+            var data = localStorage.getItem('todolist');
+            return data !== null ? JSON.parse(data) : [];
+        }
+        // 设置本地数据
+        function setData(data) {
+            localStorage.setItem('todolist', JSON.stringify(data));
+        }
+        // 渲染页面
+        function renderPage() {
+            var localData = getData();
+
+            // 初始化
+            var todoCount = 0;
+            var doneCount = 0;
+            $("ol, ul").empty();
+
+            // 注意渲染数据时有个加 id 的操作！目的是为了删除或者切换状态时找到特定的那个元素
+            $.each(localData, function (index, item) {
+                if (item.done) {
+                    $("ul").prepend("<li><input type='checkbox' checked='checked' > <p>" + item.title + "</p> <a href='javascript:;' id=" + index + " ></a></li>")
+                    doneCount++;
+                } else {
+                    $("ol").prepend("<li><input type='checkbox' > <p>" + item.title + "</p> <a href='javascript:;' id=" + index + " ></a></li>");
+                    todoCount++;
+                }
+            });
+
+            // 渲染数量
+            $("#todocount").text(todoCount);
+            $("#donecount").text(doneCount);
+        }
+    </script>
+</body>
+
+</html>
