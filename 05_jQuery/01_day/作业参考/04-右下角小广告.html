@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .ad {
+            display: none;
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 230px;
+            height: 120px;
+            background-image: url(images/ad.jpg);
+        }
+
+        .ad span {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 40px;
+            height: 18px;
+            background-image: url(images/h.jpg);
+            cursor: pointer;
+        }
+    </style>
+    <script src="jquery-1.11.1.js"></script>
+    <script>
+        // 一定要等资源加载完，不然 $(".ad") 都找不到
+        jQuery(window).load(function () {
+
+            // 需求1：页面加载完毕，ad这个盒子，先滑入在滑出，在淡入;
+            // slideDown 才是出来！！
+            $(".ad").slideDown(1000).slideUp(1000).fadeIn(1000);
+
+            // 需求2：点击span淡出我们的视野;(隐藏)
+            $("span").click(function () {
+                //隐藏ad
+                $(".ad").hide();
+            });
+
+            //优化
+            // $(".ad").slideDown().slideUp().fadeIn().find("span").click(function () {
+            //     $(".ad").fadeOut();
+            // });
+        });
+    </script>
+</head>
+
+<body>
+
+    <!--整个广告-->
+    <div class="ad">
+        <!--关闭按钮-->
+        <span></span>
+    </div>
+
+</body>
+
+</html>
