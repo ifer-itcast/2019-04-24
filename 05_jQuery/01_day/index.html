@@ -5,8 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+    #div1{
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+    }
+    </style>
 </head>
 <body>
-    Hello jQuery ~~~
+    <div id="div1"></div> 
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+$("#div1").css({
+    transition: ".4s",
+    transform: "translateX(200px)"
+});
+    </script>
 </body>
 </html>
