@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .nav{
+        position: fixed;
+        top: 35%;
+        left: 200px;
+    }
+    .nav li{
+        line-height: 30px;
+        background-color: #ccc;
+        list-style: none;
+        margin-top: 10px;
+        padding: 0 10px;
+        cursor: pointer;
+    }
+    .con{
+        width: 800px;
+        margin: 0 auto;
+    }
+    .con div{
+        height: 800px;
+    }
+    .con div:nth-child(1) {
+        background-color: pink;
+    }
+    .con div:nth-child(2) {
+        background-color: red;
+    }
+    .con div:nth-child(3) {
+        background-color: green;
+    }
+    .con div:nth-child(4) {
+        background-color: blue;
+    }
+    .con div:nth-child(5) {
+        background-color: purple;
+    }
+    header, footer{
+        margin: 0 auto;
+        width: 800px;
+        height: 400px;
+        background-color: #ccc;
+    }
+    </style>
+</head>
+<body>
+    <ul class="nav">
+        <li>导航1</li>
+        <li>导航2</li>
+        <li>导航3</li>
+        <li>导航4</li>
+        <li>导航5</li>
+    </ul>
+    <header></header>
+    <div class="con">
+        <div>内容1</div>
+        <div>内容2</div>
+        <div>内容3</div>
+        <div>内容4</div>
+        <div>内容5</div>
+    </div>
+    <footer></footer>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    
+    </script>
+</body>
+</html>
