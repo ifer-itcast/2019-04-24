@@ -1,58 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-    *{
-        margin: 0;
-        padding: 0;
-    }
-    .nav{
-        position: fixed;
-        top: 35%;
-        left: 200px;
-    }
-    .nav li{
-        line-height: 30px;
-        background-color: #ccc;
-        list-style: none;
-        margin-top: 10px;
-        padding: 0 10px;
-        cursor: pointer;
-    }
-    .con{
-        width: 800px;
-        margin: 0 auto;
-    }
-    .con div{
-        height: 800px;
-    }
-    .con div:nth-child(1) {
-        background-color: pink;
-    }
-    .con div:nth-child(2) {
-        background-color: red;
-    }
-    .con div:nth-child(3) {
-        background-color: green;
-    }
-    .con div:nth-child(4) {
-        background-color: blue;
-    }
-    .con div:nth-child(5) {
-        background-color: purple;
-    }
-    header, footer{
-        margin: 0 auto;
-        width: 800px;
-        height: 400px;
-        background-color: #ccc;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav {
+            position: fixed;
+            top: 35%;
+            left: 200px;
+            display: none;
+        }
+
+        .nav li {
+            line-height: 30px;
+            background-color: #ccc;
+            list-style: none;
+            margin-top: 10px;
+            padding: 0 10px;
+            cursor: pointer;
+        }
+
+        .nav li.active {
+            color: #fff;
+            background-color: #000;
+        }
+
+        .con {
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        .con div {
+            height: 800px;
+        }
+
+        .con div:nth-child(1) {
+            background-color: pink;
+        }
+
+        .con div:nth-child(2) {
+            background-color: red;
+        }
+
+        .con div:nth-child(3) {
+            background-color: green;
+        }
+
+        .con div:nth-child(4) {
+            background-color: blue;
+        }
+
+        .con div:nth-child(5) {
+            background-color: purple;
+        }
+
+        header,
+        footer {
+            margin: 0 auto;
+            width: 800px;
+            height: 400px;
+            background-color: #ccc;
+        }
+
+        .ow {
+            width: 800px;
+            margin: 0 auto;
+            font-size: 0;
+        }
     </style>
 </head>
+
 <body>
     <ul class="nav">
         <li>导航1</li>
@@ -62,6 +87,7 @@
         <li>导航5</li>
     </ul>
     <header></header>
+    <div class="ow"><img src="./images/ow.jpg" alt=""></div>
     <div class="con">
         <div>内容1</div>
         <div>内容2</div>
@@ -72,7 +98,58 @@
     <footer></footer>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script>
-    
+        // ow 的举例文档顶部的举例
+        var iOwTop = $(".ow").offset().top;
+        var iNum = 0;
+        var timer = null;
+        controlNav();
+        function controlNav() {
+            // 电梯的显示与隐藏
+            if ($(document).scrollTop() > iOwTop) {
+                $(".nav").show();
+            } else {
+                $(".nav").hide();
+            }
+            if (flag) {
+                // 页面滚动时，同样激活对应的 li
+                $(".con div").each(function (i, ele) {
+                    if ($(document).scrollTop() >= $(ele).offset().top - 5) {
+                        // 假如到这里滑动到第三个内容，会重复输出 0、1、2，因为都满足 scrollTop > 0、1、2的offsetTop
+                        iNum = i;
+                    }
+                });
+                // 如果第一个的 offsetTop 都比 scrollTop 大，说明一个都没命中
+                if ($(".con div").eq(0).offset().top > $(document).scrollTop()) {
+                    $(".nav li").removeClass();
+                } else {
+                    $(".nav li").eq(iNum).addClass("active").siblings().removeClass("active");
+                }
+            }
+        }
+
+        $(window).scroll(function () {
+            controlNav()
+        });
+        var flag = true;
+        // 点击电梯
+        $(".nav li").click(function () {
+            flag = false;
+            // 高亮当前的 li 并干掉其他兄弟
+            $(this).addClass("active").siblings().removeClass("active");
+
+            var idx = $(this).index();
+            // 和电梯导航相对应的那个大盒子距离顶部的距离，赋值给 $("html") 的 scrollTop 即可
+            var iTop = $(".con div").eq(idx).offset().top;
+            $("html").animate({
+                scrollTop: iTop
+            }, function () {
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    flag = true;
+                }, 500);
+            });
+        });
     </script>
 </body>
+
 </html>
