@@ -102,6 +102,7 @@
         var iOwTop = $(".ow").offset().top;
         var iNum = 0;
         var timer = null;
+        var tolerance = 10; // 容差！
         controlNav();
         function controlNav() {
             // 电梯的显示与隐藏
@@ -113,14 +114,14 @@
             if (flag) {
                 // 页面滚动时，同样激活对应的 li
                 $(".con div").each(function (i, ele) {
-                    if ($(document).scrollTop() >= $(ele).offset().top - 5) {
+                    if ($(document).scrollTop() >= $(ele).offset().top - tolerance) {
                         // 假如到这里滑动到第三个内容，会重复输出 0、1、2，因为都满足 scrollTop > 0、1、2的offsetTop
                         iNum = i;
                     }
                 });
                 // 如果第一个的 offsetTop 都比 scrollTop 大，说明一个都没命中
-                if ($(".con div").eq(0).offset().top > $(document).scrollTop()) {
-                    $(".nav li").removeClass();
+                if ($(".con div").eq(0).offset().top - tolerance > $(document).scrollTop()) {
+                    $(".nav li").eq(0).removeClass();
                 } else {
                     $(".nav li").eq(iNum).addClass("active").siblings().removeClass("active");
                 }
@@ -145,8 +146,10 @@
             }, function () {
                 clearTimeout(timer);
                 timer = setTimeout(() => {
+                    // 在 html animate 完后，$(window) 却还在 scroll
+                    // 那我等 animate 完一段时间后，再打开 scroll 中的逻辑
                     flag = true;
-                }, 500);
+                }, 200);
             });
         });
     </script>
