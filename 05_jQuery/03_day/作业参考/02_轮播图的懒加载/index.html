@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/echo.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .wrap {
+            width: 300px;
+            height: 150px;
+            margin: 60px auto 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .con {
+            position: absolute;
+            left: 0;
+            width: 400%;
+            height: 100%;
+        }
+
+        .con li {
+            width: 300px;
+            height: 150px;
+            line-height: 150px;
+            float: left;
+            color: #fff;
+            font-size: 60px;
+            text-align: center;
+        }
+
+        .dot {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dot li {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, .3);
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+
+        .dot .active {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, .8);
+            cursor: pointer;
+            font-size: 30px;
+            display: none;
+        }
+
+        .arrow:hover {
+            color: rgba(255, 255, 255, 1);
+        }
+
+        .arrow-left {
+            left: 0;
+        }
+
+        .arrow-right {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <ul class="con">
+            <li>
+                <img src="images/1.gif" data-echo="./images/111.png" width="300" height="150" alt="我是图片">
+            </li>
+            <li>
+                <img src="images/1.gif" data-echo="./images/222.jpg" width="300" height="150" alt="我是图片">
+            </li>
+            <li>
+                <img src="images/1.gif" data-echo="./images/333.png" width="300" height="150" alt="我是图片">
+            </li>
+            <li>
+                <img src="images/1.gif" data-echo="./images/444.png" width="300" height="150" alt="我是图片">
+            </li>
+        </ul>
+        <ol class="dot"></ol>
+        <span class="arrow arrow-left">&lt;</span>
+        <span class="arrow arrow-right">&gt;</span>
+    </div>
+    <script src="./animate.js"></script>
+    <script>
+        // 选择元素
+        var oWrap = document.querySelector('.wrap');
+        var oUl = oWrap.querySelector('.con');
+        var oOl = oWrap.querySelector('.dot');
+        var oLeft = oWrap.querySelector('.arrow-left');
+        var oRight = oWrap.querySelector('.arrow-right');
+
+        var timer = null;
+
+
+        // 先克隆第一个到最后
+        oUl.appendChild(oUl.children[0].cloneNode(true));
+        // 再选取所有 li
+        var aLi = oUl.querySelectorAll('li');
+        // 计算 oUl 的宽度
+        var iOneLiWidth = aLi[0].offsetWidth;
+        oUl.style.width = iOneLiWidth * aLi.length + 'px';
+
+
+        // 移入显示左右箭头
+        oWrap.onmouseover = function () {
+            oRight.style.display = 'block';
+            oLeft.style.display = 'block';
+
+            // 清除定时器
+            clearInterval(timer);
+        };
+        // 移出隐藏左右箭头
+        oWrap.onmouseout = function () {
+            oRight.style.display = 'none';
+            oLeft.style.display = 'none';
+
+            timer = setInterval(function () {
+                oRight.click();
+            }, 1000);
+        };
+
+
+        // 点击右侧按钮
+        var iNum = 0;
+        var bBar = true;
+        oRight.onclick = function () {
+            if (bBar) {
+                bBar = false;
+                // 注意第一次点击这里的 iNum 依然是 0，是 iNum++ 之前进行的判断
+                if (iNum === aLi.length - 1) {
+                    // 同样是到了最后一张并且再次点击的时候
+                    oUl.style.left = 0;
+                    iNum = 0;
+                }
+                if (iNum === aLi.length - 2) {
+                    // 即将到最后一张时，进行懒加载
+                    echo.render();
+                }
+                iNum++;
+
+                /* if(iNum === aLi.length) {
+                    // 到了最后一张并且再次点击的时候
+                    oUl.style.left = 0;
+                    iNum = 1;
+                } */
+                animate(oUl, -iNum * iOneLiWidth, function () {
+                    bBar = true;
+                });
+
+                // 高亮小圆点按钮
+                /* if(iDotNum === aOlLi.length - 1) {
+                    iDotNum = -1;
+                }
+                iDotNum ++; */
+                iDotNum++;
+                if (iDotNum === aOlLi.length) {
+                    iDotNum = 0;
+                }
+                activeDot();
+
+            }
+        };
+
+        // 点击左侧按钮
+        oLeft.onclick = function () {
+            if (bBar) {
+                bBar = false;
+                if (iNum === 0) {
+                    // 注意是负值！瞬间定位到相同的最后一张，然后再进行下面的 animate
+                    oUl.style.left = -iOneLiWidth * (aLi.length - 1) + 'px';
+                    iNum = aLi.length - 1;
+                    // 即将到最后一张时，进行懒加载
+                    echo.render();
+                }
+                iNum--;
+
+                // 注意这里也应该是负的！
+                animate(oUl, -iNum * iOneLiWidth, function () {
+                    bBar = true;
+                });
+
+                // 高亮小圆点按钮
+                iDotNum--;
+                if (iDotNum === -1) {
+                    iDotNum = aOlLi.length - 1;
+                }
+                activeDot(iNum);
+            }
+        };
+
+
+        // 根据 li 数量生成对应的中间按钮
+        var oFrag = document.createDocumentFragment();
+        for (var i = 0; i < aLi.length - 1; i++) {
+            var oLi = document.createElement('li');
+            if (i === 0) oLi.className = 'active';
+            oFrag.appendChild(oLi);
+        }
+        oOl.appendChild(oFrag);
+
+
+        // 点击中间按钮
+        var aOlLi = oOl.children;
+        var iPrev = 0;
+
+        for (var i = 0; i < aOlLi.length; i++) {
+            aOlLi[i].index = i;
+            aOlLi[i].onclick = function () {
+                // 给小按钮的点击也加一个开关
+                if (bBar) {
+                    bBar = false;
+                    // .......点击高亮.........
+                    iDotNum = this.index;
+                    activeDot();
+                    // .......点击运动...........
+                    animate(oUl, -this.index * iOneLiWidth, function () {
+                        bBar = true;
+                    });
+
+                    // .......细节处理...........
+                    // 假如一上来我先点击的是第 4 个小按钮，这时候对应的图片也就跑到第 4 张，必然没有任何问题
+                    // 但此时我再点击右侧的箭头，会发现跑到了第 2 张，由 4 => 2，这并不是我们想要的，我们需要的是 4 => 1
+                    // 而点击右侧箭头时的运动又是通过 iNum 这个变量控制的，所以我们只需要每次点击小按钮的时候让 iNum 也保持同步即可，代码如下：
+                    iNum = this.index;
+                }
+            };
+        }
+
+        // 先把同步高亮的代码抽离出来，因为点击左右按钮时也需要用到
+        // 除了用传值的方式找到需要高亮的那个小按钮，还可以使用全局变量的形式进行高亮
+        var iDotNum = 0;
+        function activeDot() {
+            // step1: 清除上一个
+            aOlLi[iPrev].className = '';
+            // step2: 自己高亮
+            aOlLi[iDotNum].className = 'active';
+            // step3: 把自己变成“上一个”
+            iPrev = iDotNum;
+        }
+
+
+        // 自动运动
+        timer = setInterval(function () {
+            // 这个 click 是系统内置的方法，所以不能 setInterval(oRight.click, 1000)
+            oRight.click();
+        }, 2000);
+    </script>
+    <script>
+        echo.init({
+            offset: 100,
+            throttle: 250,
+            unload: false,
+            callback: function (element, op) {
+                console.log(element, 'has been', op + 'ed')
+            }
+        });
+    </script>
+</body>
+
+</html>
