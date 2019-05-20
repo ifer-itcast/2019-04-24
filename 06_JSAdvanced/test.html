@@ -8,9 +8,36 @@
     <title>Document</title>
 </head>
 
-<body>
-    <script>
-    </script>
+<body style="height: 2000px;">
+<div class="all">
+    <input type="checkbox">
+</div>
+<ul class="list">
+    <li><input type="checkbox" name="" id=""></li>
+    <li><input type="checkbox" name="" id=""></li>
+    <li><input type="checkbox" name="" id=""></li>
+    <li><input type="checkbox" name="" id=""></li>
+    <li><input type="checkbox" name="" id=""></li>
+</ul>
+<script>
+var oInput = document.querySelector(".all input");
+var aInput = document.querySelectorAll(".list input");
+
+oInput.onchange = function(e) {
+    for(var i = 0; i < aInput.length; i ++) {
+        aInput[i].click();
+    }
+};
+oInput.onblur = function() {
+    console.log(1);
+};
+
+for(var i = 0; i < aInput.length; i ++) {
+    aInput[i].onchange = function() {
+        console.log('hello ~~');
+    };
+}
+</script>
 </body>
 
 </html>
