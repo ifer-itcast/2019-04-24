@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #000;
+        }
+
+        .wolf {
+            position: absolute;
+            top: 30%;
+            width: 200px;
+            height: 100px;
+            /* 默认 end，忽略结束 */
+            animation: aniSelf 1s steps(8) infinite, aniPos 2s forwards;
+            background: url(./images/bear.png) no-repeat;
+        }
+
+        @keyframes aniSelf {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: -1600px 0;
+            }
+        }
+
+        @keyframes aniPos {
+            0% {
+                left: 0;
+            }
+
+            100% {
+                left: 50%;
+                margin-left: -50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wolf"></div>
+</body>
+
+</html>
