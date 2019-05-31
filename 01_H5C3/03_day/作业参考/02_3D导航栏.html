@@ -1,42 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-    *{
-        margin: 0;
-        padding: 0;
-    }
-    .list{
-        
-    }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .list {
+            margin: 100px auto 0;
+            width: 600px;
+            height: 40px;
+            line-height: 40px;
+            display: flex;
+            text-align: center;
+        }
+
+        .list li {
+            list-style: none;
+            position: relative;
+            flex: 1;
+            margin: 0 5px;
+            cursor: pointer;
+            color: #fff;
+            /* 注意！透视的效果一定是加在每一个 li 上比较合适 */
+            perspective: 500px;
+        }
+
+        .list li .box {
+            width: 100%;
+            height: 40px;
+            /* 注意！保留 3d 效果一定是加在 .box 上 */
+            transform-style: preserve-3d;
+            transition: .6s;
+        }
+
+        /* Step3: 旋转 */
+        .list li .box:hover {
+            transform: rotateX(90deg);
+        }
+
+        .list li div {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .front {
+            z-index: 1;
+            background-color: red;
+            /* Step2: 往前走 20px */
+            transform: translateZ(20px);
+        }
+
+        .bottom {
+            background-color: #333;
+            /* Step1: 先旋转 -90deg，再移动到盒子的最下面 */
+            transform: translateY(20px) rotateX(-90deg);
+        }
     </style>
 </head>
+
 <body>
     <ul class="list">
         <li>
-            <div class="front">游戏中心</div>
-            <div class="bottom">点我进入</div>
+            <div class="box">
+                <div class="front">游戏中心</div>
+                <div class="bottom">点我进入</div>
+            </div>
         </li>
         <li>
-            <div class="front">游戏中心</div>
-            <div class="bottom">点我进入</div>
+            <div class="box">
+                <div class="front">游戏中心</div>
+                <div class="bottom">点我进入</div>
+            </div>
         </li>
         <li>
-            <div class="front">游戏中心</div>
-            <div class="bottom">点我进入</div>
+            <div class="box">
+                <div class="front">游戏中心</div>
+                <div class="bottom">点我进入</div>
+            </div>
         </li>
         <li>
-            <div class="front">游戏中心</div>
-            <div class="bottom">点我进入</div>
+            <div class="box">
+                <div class="front">游戏中心</div>
+                <div class="bottom">点我进入</div>
+            </div>
         </li>
         <li>
-            <div class="front">游戏中心</div>
-            <div class="bottom">点我进入</div>
+            <div class="box">
+                <div class="front">游戏中心</div>
+                <div class="bottom">点我进入</div>
+            </div>
         </li>
     </ul>
 </body>
+
 </html>
