@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #333;
+        }
+
+        .map {
+            margin: 0 auto;
+            width: 747px;
+            height: 617px;
+            background: url(./images/map.png) no-repeat;
+            position: relative;
+        }
+
+        .light {
+            position: absolute;
+            top: 227px;
+            left: 540px;
+            width: 8px;
+            height: 8px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #09f;
+            border-radius: 50%;
+        }
+
+        [class^="circle"] {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #009dfd;
+            /* circle1 走 1/3 开始 circle2，circle1 走 2/3 开始 circle3... */
+            /* circle1 走完一轮，再走到下一轮的 1/3 时，上一轮的 circle1 走完 ... */
+            animation: light 1.2s linear infinite;
+        }
+
+        @keyframes light {
+            0% {}
+
+            70% {
+                width: 40px;
+                height: 40px;
+                opacity: 1;
+            }
+
+            100% {
+                width: 70px;
+                height: 70px;
+                opacity: 0;
+            }
+        }
+
+        .circle2 {
+            animation-delay: .4s;
+        }
+
+        .circle3 {
+            animation-delay: .8s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="map">
+        <div class="light">
+            <div class="dot"></div>
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+        </div>
+    </div>
+</body>
+
+</html>
