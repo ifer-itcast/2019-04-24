@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        /* 需要从大的外部去透视，如果透视加在 section 上，那每一个元素观看到的效果是不同的！ */
+        perspective: 1000px;
+    }
+    section {
+        margin: 150px auto 0;
+        width: 300px;
+        height: 150px;
+        position: relative;
+        /* 让其子保留 3d 效果 */
+        transform-style: preserve-3d;
+        animation: move 20s linear infinite;
+        background-color: green;
+    }
+    section:hover{
+        animation-play-state: paused;
+    }
+    @keyframes move {
+        0%{}
+        100%{
+            transform: rotateY(360deg);
+        }
+    }
+    section div{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url(./images/dva.png) no-repeat;
+        background-size: contain;
+    }
+
+    section div:nth-child(1) {
+        transform: rotateY(0) translateZ(300px);
+    }
+    section div:nth-child(2) {
+        transform: rotateY(60deg) translateZ(300px);
+    }
+    section div:nth-child(3) {
+        transform: rotateY(120deg) translateZ(300px);
+    }
+    section div:nth-child(4) {
+        transform: rotateY(180deg) translateZ(300px);
+    }
+    section div:nth-child(5) {
+        transform: rotateY(240deg) translateZ(300px);
+    }
+    section div:nth-child(6) {
+        transform: rotateY(300deg) translateZ(300px);
+    }
+    </style>
+</head>
+<body>
+    <section>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </section>
+</body>
+</html>
