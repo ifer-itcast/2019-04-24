@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background-color: pink;
+    }
+    .box{
+        margin: 50px auto 0;
+        width: 0;
+        height: 400px;
+        border-left: 200px solid #000;
+        border-right: 200px solid #fff;
+        border-radius: 50%;
+        position: relative;
+        transition: .6s;
+    }
+    .box:hover{
+        transform: rotate(360deg);
+    }
+    .box::before,.box::after{
+        content: "";
+        position: absolute;
+        left: -100px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    .box::before{
+        background-color: #fff;
+        border: 75px solid #000;
+    }
+    .box::after{
+        bottom: 0;
+        background-color: #000;
+        border: 75px solid #fff;
+    }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+</html>
