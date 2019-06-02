@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .wrap{
+        margin: 60px auto 0;
+        width: 600px;
+        height: 40px;
+        line-height: 40px;
+        background-color: pink;
+        padding-right: 100px;
+    }
+    .left{
+        float: left;
+        list-style: none;
+    }
+    .left li {
+        float: left;
+        margin: 0 20px;
+        cursor: pointer;
+    }
+    .right{
+        position: relative;
+        width: 40px;
+        float: right;
+        transition: width .6s;
+    }
+    /* input 默认是白色的，盖在白色的搜索框上面就看不到我们的搜索框了，所以我们可以把透明度置为0 */
+    /* 当然你也可以用 display:none; 那在 hover 的时候就要对应的 display:block; */
+    .right input {
+        float: right;
+        border: none;
+        width: 100%;
+        height: 40px;
+        opacity: 0;
+        /* text-indent 是为了不把搜索按钮挡住我们输入的文字 */
+        text-indent: 36px;
+    }
+    /* 搜索 ICON 是一个决定定位，脱离文档流，目的是为了让 input 能盖上 */
+    .right i {
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        /* 这里一定是 right: 10; */
+        /* 不能是 left: 10; 因为 left: 10 会跟随着 .right 框的变化而变化 */
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        background: url(./images/sprite.png) no-repeat;
+        background-position: -97px -215px;
+    }
+
+    /* hover 的时候做了 3 件事情！！！ */
+
+    /* 在 hover 搜索图标的时候首先改变了 .right 本身的宽度 */
+    /* 由于里面的 input 是一个 100% 的一个宽度，所以会跟随外面框的变化而变化 */
+    .right:hover{
+        width: 250px;
+    }
+    /* 然后把 input 显示出来 */
+    /* 改变宽度是需要时间的，而opacity置为1是一个瞬间的过程，所以也会看到宽度变化的动画效果 */
+    .right:hover input{
+        opacity: 1;
+    }
+    /* 同样把 i 的背景图片改成是灰色的那个搜索按钮 */
+    /* 当然最重要的是要改变 left 值 */
+    .right:hover i {
+        left: 10px;
+        background-position: -66px -215px;
+    }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul class="left">
+            <li>新闻</li>
+            <li>彩票</li>
+            <li>科技</li>
+        </ul>
+        <div class="right">
+            <input type="text">
+            <i class="search"></i>
+        </div>
+    </div>
+</body>
+</html>
