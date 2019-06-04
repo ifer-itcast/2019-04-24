@@ -29,13 +29,14 @@
             cursor: pointer;
             color: #fff;
             /* 注意！透视的效果一定是加在每一个 li 上比较合适 */
+            /* 视点在每个 li 上 */
             perspective: 500px;
         }
 
         .list li .box {
             width: 100%;
             height: 40px;
-            /* 注意！保留 3d 效果一定是加在 .box 上 */
+            /* 注意！保留 3d 效果一定是加在 .box 上，使其子元素保留3D效果 */
             transform-style: preserve-3d;
             transition: .6s;
         }
