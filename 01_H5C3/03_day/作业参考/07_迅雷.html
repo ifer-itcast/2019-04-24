@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            background: url(./images/banner_bg.jpg) no-repeat center center;
+            background-size: cover;
+        }
+        /* 给的案例是用的 zoom，我是缩小一半做的（图片设计不合理有奇数，导致再除以2的时候有一定的误差） */
+        .wrap{
+            width: 365px;
+            height: 365px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .box{
+            width: 100%;
+            height: 100%;
+            background: url(./images/earth01.png) no-repeat;
+            background-size: contain;
+            position: relative;
+        }
+        .box::before{
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            /* 720/2 */
+            width: 360px;
+            height: 360px;
+            background: url(./images/spr_bannerPathway.png) no-repeat;
+            /* background-size: 50% 50%; */
+            background-size: 1578px 1513px;
+            background-position: -1218px 0;
+            animation: right 20s linear infinite;
+        }
+
+        .box::after{
+            content: "";
+            position: absolute;
+            top: 19px;
+            left: 19px;
+            width: 328px;
+            height: 328px;
+            background: url(./images/spr_bannerPathway.png) no-repeat;
+            background-size: 1578px 1513px;
+            background-position: -1218px -365px;
+            animation: left 10s linear infinite;
+        }
+
+        @keyframes right {
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes left {
+            100%{
+                transform: rotate(-360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 一个往右边转的慢，一个往左边转的快 -->
+    <div class="wrap">
+        <div class="box">
+
+        </div>
+    </div>
+</body>
+
+</html>
