@@ -42,6 +42,7 @@
     }
 
     section div:nth-child(1) {
+        /* 切记，先rotateY再 translateZ不然后面几个都堆一起了 */
         transform: rotateY(0) translateZ(300px);
     }
     section div:nth-child(2) {
