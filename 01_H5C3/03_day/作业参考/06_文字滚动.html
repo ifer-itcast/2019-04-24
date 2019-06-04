@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .wrap{
+        margin: 100px auto 0;
+        width: 540px;
+        height: 30px;
+        line-height: 30px;
+        border: 1px  solid #333;
+    }
+    .wrap .con{
+        width: 200%;
+        /* 下次再次开始循环动画时，是瞬间跳到起点的位置（又没有加 alternate），人眼几乎看不出来 */
+        animation: move 5s linear infinite;
+    }
+    .wrap .con p{
+        width: 50%;
+        float: left;
+    }
+    @keyframes move{
+        100%{
+            transform: translate(-50%);
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="con">
+                <p>先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。</p>
+                <p>先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。</p>
+                </div>
+    </div>
+</body>
+</html>
