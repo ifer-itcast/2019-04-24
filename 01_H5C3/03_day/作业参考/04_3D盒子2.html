@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    body{
+        perspective: 1000px;
+    }
+    .box{
+        margin: 200px auto 0;
+        width: 150px;
+        height: 150px;
+        line-height: 150px;
+        color: #fff;
+        text-align: center;
+        font-size: 30px;
+        position: relative;
+        transition: 3s;
+        transform-style: preserve-3d;
+    }
+    .box:hover{
+        transform: rotate3d(1, 1, 0, 300deg);
+    }
+    .box div{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .box div:nth-child(1) {
+        /* 前 */
+        transform: translateZ(100px);
+        background-color: red;
+    }
+    .box div:nth-child(2) {
+        /* 后 */
+        transform: translateZ(-100px);
+        background-color: green;
+    }
+    .box div:nth-child(3) {
+        background-color: blue;
+        /* 左 */
+        /* transform: rotateY(90deg) translateZ(100px); */
+        transform: translateX(-100px) rotateY(90deg);
+    }
+    .box div:nth-child(4) {
+        /* 右 */
+        /* transform: rotateY(90deg) translateZ(-100px); */
+        transform: translateX(100px) rotateY(90deg);
+        background-color: pink;
+    }
+    .box div:nth-child(5) {
+        /* 上 */
+        /* transform: rotateX(90deg) translateZ(100px); */
+        transform: translateY(-100px) rotateX(90deg);
+        background-color: purple;
+    }
+    .box div:nth-child(6) {
+        /* 下 */
+        /* transform: rotateX(90deg) translateZ(-100px); */
+        transform: translateY(100px) rotateX(90deg);
+        background-color: burlywood;
+    }
+    </style>
+</head>
+<body>
+    <!-- 提供了两种方法：先旋转再移动（Z）或先移动（X、Y）再旋转 -->
+    <!-- 当然还有其他各种各样方法，感兴趣自己可以研究 -->
+    <div class="box">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+    </div>
+</body>
+</html>
