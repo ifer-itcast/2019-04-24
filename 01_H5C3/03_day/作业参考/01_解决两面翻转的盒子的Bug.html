@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            perspective: 500px;
+        }
+        .all-wrap{
+            width: 200px;
+            height: 200px;
+            margin: 100px auto 0;
+        }
+
+        .all-wrap:hover .wrap {
+            transform: rotateY(180deg);
+        }
+
+        .wrap {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
+            transition: 1s;
+            /* 让子盒子保留立体空间 */
+            transform-style: preserve-3d;
+            /* 不要给父元素加 overflow:hidden，不然会影响变换时的 3D 效果 */
+        }
+
+        .front,
+        .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            color: #fff;
+            text-align: center;
+            line-height: 200px;
+            font-size: 36px;
+            border-radius: 50%;
+        }
+
+        .front {
+            z-index: 2;
+            background-color: red;
+        }
+
+        .back {
+            transform: rotateY(180deg);
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="all-wrap">
+        <div class="wrap">
+            <div class="front">Hello</div>
+            <div class="back">World</div>
+        </div>
+    </div>
+</body>
+
+</html>
