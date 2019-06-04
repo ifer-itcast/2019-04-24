@@ -14,21 +14,25 @@
         width: 100px;
         height: 100px;
         background-color: rgb(121, 113, 113);
-        animation: move 1s 2 alternate;
+        position: relative;   
     }
-    @keyframes move {
-        0%{
-            transform: translateX(0);
-        }
-        100%{
-            transform: translateX(100px);
-        }
+    .box::after{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        /* 尽量给需要过度的属性加上初始值，即便开始是 0 */
+        width: 0;
+        height: 100%;
+        background-color: purple;
+        transition: width .3s;
+    }
+    .box:hover::after{
+        width: 100%;
     }
     </style>
 </head>
 <body>
-    <div class="box">
-
-    </div>
+    <div class="box"></div>
 </body>
 </html>
