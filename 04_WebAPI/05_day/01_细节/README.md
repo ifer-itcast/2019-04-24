@@ -3,7 +3,8 @@
 ## 关于 Margin
 
 - 不要给想要运动的物体在样式初始化时加 margin，如果想要改变它的位置，可以使用 top 或 left
-- 如果在应用了定位的同时竟然又加了 margin（严重不推荐，因为这里 top、left 完全可以搞定 margin 的功能），那需要在 mousemove 的时候减去这个值，当然你在 mousedown 的时候 disX = e.pageX - this.offsetLeft + marginLeft 也是 ok 的
+- 如果在应用了定位的同时竟然又加了 margin（严重不推荐，因为这里 top、left 完全可以搞定 margin 的功能），那需要在 mousemove 的时候减去这个值，当然你在 mousedown 的时候 disX = e.pageX - this.offsetLeft + marginLeft 也是 ok 的！
+- 因为 mousedown 计算 disX 时 offsetLeft 包括 margin，而 mousemove 时把计算的结果又赋值给了元素的 left，而一个盒子的 left 距离并不是从 margin 开始的（不包含 margin）
 
 ## 关于 Translate
 
