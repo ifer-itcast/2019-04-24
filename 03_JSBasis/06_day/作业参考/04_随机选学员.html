@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 从以下学员名单中随机选出4个学员：不要有重复的学员
+        var arr = ["鹿晗", "王俊凯", "蔡徐坤", "彭于晏", "周杰伦", "刘德华", "赵本山"];
+
+        function getRandom(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        var newArr = [];
+        while (true) {
+            var randomItem = arr[getRandom(0, arr.length - 1)]
+            if (newArr.indexOf(randomItem) === -1) {
+                newArr.push(randomItem);
+            }
+            if (newArr.length === 4) break;
+        }
+        console.log(newArr);
+    </script>
+</body>
+
+</html>
