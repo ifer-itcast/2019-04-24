@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 总钱
+    var money = 100;
+
+    // 标记语句，outer 就是一个标记语句
+    outer:
+    do {
+        var num = prompt(`1. 存钱\n2. 取钱\n3. 显示余额\n4. 退出`); // '1'
+        switch(num) {
+            case '1':
+                var saveMoney = parseInt(prompt('请输入存的金额')); // '20'
+                // 把存的钱加进去
+                money += saveMoney;
+                alert(`你的余额是${money}`);
+                break;
+            case '2':
+                var getMoney = parseInt(prompt('请输入取的金额')); // '20'
+                // 把取的钱从总金额里面减去
+                money -= getMoney;
+                alert(`你的余额是${money}`);
+                break;
+            case '3':
+                alert(`你的余额是${money}`);
+                break;
+            case '4':
+                // break 只能退出当前的 switch，并不能退出外面的循环
+                // break;
+                // 可以直接退出到 outer 标记的地方
+                alert('正在退出...');
+                break outer;
+        }
+    } while(true);
+    </script>
+</body>
+</html>

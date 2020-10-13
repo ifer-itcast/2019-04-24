@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 总钱
+        var money = 100;
+        do {
+            var num = prompt(`1. 存钱\n2. 取钱\n3. 显示余额\n4. 退出`); // '1'
+            if (num === '1') {
+                var saveMoney = parseInt(prompt('请输入存的金额')); // '20'
+                // 把存的钱加进去
+                money += saveMoney;
+                alert(`你的余额是${money}`);
+            } else if (num === '2') {
+                var getMoney = parseInt(prompt('请输入取的金额')); // '20'
+                // 把取的钱从总金额里面减去
+                money -= getMoney;
+                alert(`你的余额是${money}`);
+            } else if (num === '3') {
+                alert(`你的余额是${money}`);
+            } else if (num === '4') {
+                alert('正在退出...');
+                break;
+            } else {
+                alert('你输入的是个啥，再来一次吧');
+            }
+        } while (true);
+    </script>
+</body>
+
+</html>
